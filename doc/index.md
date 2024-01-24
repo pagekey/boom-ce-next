@@ -12,6 +12,10 @@ All of the features documented in the `architecture` folder will follow this bas
 
 ```mermaid
 flowchart LR
-  Proposed --> Ongoing
-  Ongoing --> Implemented
+  proposed --> accepted
+  accepted --> ongoing
+  ongoing --> implemented
+  proposed --> rejected
+  ongoing --> postponed
+  postponed --> ongoing
 ```
