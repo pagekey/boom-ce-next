@@ -50,10 +50,12 @@ Out of scope:
 
 ### `Translator` Component
 
+TODO: wireframe png here
+
 The `Translator` component contains the following elements:
 
-Field  | Type     | Description
------- |------    | ------------
+Name | Type | Description
+-----|------|------------
 Left   | TextArea | Left-hand side (text to translate)
 Right  | Text  | Right-hand side (translated text)
 SwapButton | Button | Button to swap the languages
@@ -62,11 +64,19 @@ SaveSingleCard | Button | Button to save a single word as a card. On click, sele
 
 It accepts these props from the parent:
 
-TODO
+Name | Type | Description
+-----|------|------------
+`onTranslate` | `(prompt: string, promptLanguage: string, response: string, responseLanguage: string) => void` | Save translation history
+`onSaveCard` | `(front: string, back: string) => void` | Handler when the user saves a card. Called with `(front, back)`.
 
 It maintains the following internal state:
 
-TODO
+Name | Type | Description
+-----|------|------------
+`left` | `string` | Current text in left box. SwapButton flips this with right.
+`leftLanguage` | `string` | Language of text in left box
+`right` | `string` | Current text in right box
+`rightLanguage` | `string` | Language of text in right box. SwapButton flips this with left.
 
 ### `Translator` Page
 
