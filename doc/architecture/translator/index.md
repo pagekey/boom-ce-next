@@ -6,142 +6,75 @@ coach: "n/a"
 approvers: [ "@stephengrice" ]
 ---
 
-<!--
-Original template from GitLab - thank you!
-Here's the source: https://gitlab.com/gitlab-org/gitlab/-/blob/master/doc/architecture/blueprints/_template.md
--->
-
-<!--
-Before you start:
-
-- Copy this file to a sub-directory and call it `index.md` for it to appear in
-  the blueprint directory.
-- Remove comment blocks for sections you've filled in.
-  When your blueprint ready for review, all of these comment blocks should be
-  removed.
-
-To get started with a blueprint you can use this template to inform you about
-what you may want to document in it at the beginning. This content will change
-/ evolve as you move forward with the proposal.  You are not constrained by the
-content in this template. If you have a good idea about what should be in your
-blueprint, you can ignore the template, but if you don't know yet what should
-be in it, this template might be handy.
-
-- **Fill out this file as best you can.** At minimum, you should fill in the
-  "Summary", and "Motivation" sections.  These can be brief and may be a copy
-  of issue or epic descriptions if the initiative is already on Product's
-  roadmap.
-- **Create a MR for this blueprint.** Assign it to an Architecture Evolution
-  Coach (i.e. a Principal+ engineer).
-- **Merge early and iterate.** Avoid getting hung up on specific details and
-  instead aim to get the goals of the blueprint clarified and merged quickly.
-  The best way to do this is to just start with the high-level sections and fill
-  out details incrementally in subsequent MRs.
-
-Just because a blueprint is merged does not mean it is complete or approved.
-Any blueprint is a working document and subject to change at any time.
-
-When editing blueprints, aim for tightly-scoped, single-topic MRs to keep
-discussions focused. If you disagree with what is already in a document, open a
-new MR with suggested changes.
-
-If there are new details that belong in the blueprint, edit the blueprint. Once
-a feature has become "implemented", major changes should get new blueprints.
-
-The canonical place for the latest set of instructions (and the likely source
-of this file) is [here](/doc/architecture/blueprints/_template.md).
-
-Blueprint statuses you can use:
-
-- "proposed"
-- "accepted"
-- "ongoing"
-- "implemented"
-- "postponed"
-- "rejected"
-
--->
-
-<!-- Blueprints often contain forward-looking statements -->
-<!-- vale gitlab.FutureTense = NO -->
-
-# {+ Title of Blueprint +}
-
-<!--
-This is the title of your blueprint. Keep it short, simple, and descriptive. A
-good title can help communicate what the blueprint is and should be considered
-as part of any review.
--->
-
-<!--
-For long pages, consider creating a table of contents.
-The `[_TOC_]` function is not supported on docs.gitlab.com.
--->
+# Translator (Text)
 
 ## Summary
 
-<!--
-This section is very important, because very often it is the only section that
-will be read by team members. We sometimes call it an "Executive summary",
-because executives usually don't have time to read entire document like this.
-Focus on writing this section in a way that anyone can understand what is says,
-the audience here is everyone: executives, product managers, engineers, wider
-community members.
-
-A good summary is probably at least a paragraph in length.
--->
+One of the most common needs when learning a language is to be able to quickly translate words and phrases to and from your target language. An example would be pasting "hola" into a translation app to find out that it means "hello" in Spanish. This feature is included in Boom so that the user's translation history can be integrated with other features, such as the `cards` feature. While it is mostly just be a pass-through to another translation API, the ability to intercept this traffic and save words that the user wants to remember later makes this a valuable feature.
 
 ## Motivation
 
-<!--
-This section is for explicitly listing the motivation, goals and non-goals of
-this blueprint. Describe why the change is important, all the opportunities,
-and the benefits to users.
+Switching between apps is not part of an integrated language learning experience and must be avoided. By including a translation feature in Boom, allows the user to translate words and phrases without leaving the app.
 
-The motivation section can optionally provide links to issues that demonstrate
-interest in a blueprint within the wider GitLab community. Links to
-documentation for competing products and services is also encouraged in cases
-where they demonstrate clear gaps in the functionality GitLab provides.
+The user benefits because they can review their previous translations, save the entire translation as a card for later review, or even pick and choose words within a pasted phrase to save as cards.
 
-For concrete proposals we recommend laying out goals and non-goals explicitly,
-but this section may be framed in terms of problem statements, challenges, or
-opportunities. The latter may be a more suitable framework in cases where the
-problem is not well-defined or design details not yet established.
--->
+This feature can also be integrated into other views within Boom.
 
 ### Goals
 
-<!--
-List the specific goals / opportunities of the blueprint.
-
-- What is it trying to achieve?
-- How will we know that this has succeeded?
-- What are other less tangible opportunities here?
--->
+- Provide a translation interface where the user can paste text and receive a translation
+- Allow fast switching between the current target language and the user's native language
+- Store the translation history
+- Allow saving of cards from translations (entire phrase)
+- Allow saving of cards from translations (single words within translation)
 
 ### Non-Goals
 
-<!--
-Listing non-goals helps to focus discussion and make progress. This section is
-optional.
+Out of scope:
 
-- What is out of scope for this blueprint?
--->
+- How local translation history is synced with server. See `storage` blueprint.
+- How cards are saved. See `cards` blueprint.
 
 ## Proposal
 
-<!--
-This is where we get down to the specifics of what the proposal actually is,
-but keep it simple!  This should have enough detail that reviewers can
-understand exactly what you're proposing, but should not include things like
-API designs or implementation. The "Design Details" section below is for the
-real nitty-gritty.
+1. Create the `src/component/Translator.tsx` component that allows you to paste text and receive a translation, and switch languages.
 
-You might want to consider including the pros and cons of the proposed solution so that they can be
-compared with the pros and cons of alternatives.
--->
+2. Provide hooks in the `Translator` component for:
+
+- Saving translation history
+- Saving cards
+
+3. Add the page `pages/translator/index.tsx` to display the translator component and feed data into it.
 
 ## Design and implementation details
+
+### `Translator` Component
+
+The `Translator` component contains the following elements:
+
+Field  | Type     | Description
+------ |------    | ------------
+Left   | TextArea | Left-hand side (text to translate)
+Right  | Text  | Right-hand side (translated text)
+SwapButton | Button | Button to swap the languages
+SaveCard | Button | Button to save the translation as a card
+SaveSingleCard | Button | Button to save a single word as a card. On click, select word(s) from each side
+
+It accepts these props from the parent:
+
+TODO
+
+It maintains the following internal state:
+
+TODO
+
+### `Translator` Page
+
+Page contains:
+
+- Title
+- `Translator` component
+- State: TODO
 
 <!--
 This section should contain enough information that the specifics of your
@@ -170,9 +103,6 @@ directory as the `index.md` for the proposal.
 
 ## Alternative Solutions
 
-<!--
-It might be a good idea to include a list of alternative solutions or paths considered, although it is not required. Include pros and cons for
-each alternative solution/path.
+An intent to another app to provide the translation could work, but the experience would likely feel clunky. It may not be possible to control how/when the user returns to the app and it's possible that they'll get distracted and forget to come back.
 
-"Do nothing" and its pros and cons could be included in the list too.
--->
+Not including this feature at all would require the user to manually switch between apps to translate text when working on a project.
