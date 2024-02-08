@@ -1,6 +1,6 @@
 include:
-  - project: pagekey/libs/cicd
-    ref: main
+  - project: pagekeystreaming/cicd
+    ref: 02-non-poetry
     file: 03-docs/docgen.yaml
 
 stages:
