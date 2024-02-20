@@ -50,7 +50,7 @@ Out of scope:
 
 ### `Translator` Component
 
-TODO: wireframe png here
+![Translator Wireframe](./TranslatorWireframe.svg)
 
 The `Translator` component contains the following elements:
 
@@ -66,8 +66,8 @@ It accepts these props from the parent:
 
 Name | Type | Description
 -----|------|------------
-`onTranslate` | `(prompt: string, promptLanguage: string, response: string, responseLanguage: string) => void` | Save translation history
-`onSaveCard` | `(front: string, back: string) => void` | Handler when the user saves a card. Called with `(front, back)`.
+`translate` | `(prompt: string, promptLanguage: string, responseLanguage: string) => (response: string)` | Request a translation from the server.
+`saveCard` | `(front: string, back: string) => void` | Save a card to the server.
 
 It maintains the following internal state:
 
@@ -78,38 +78,39 @@ Name | Type | Description
 `right` | `string` | Current text in right box
 `rightLanguage` | `string` | Language of text in right box. SwapButton flips this with left.
 
-### `Translator` Page
+Internally, there is a list of supported languages and a hardcoded default value for the left and right languages at first render.
 
-Page contains:
+### Server-Side Routes
 
-- Title
-- `Translator` component
-- State: TODO
+The routes for the Translator will be stored in a tRPC router called `translator`.
 
-<!--
-This section should contain enough information that the specifics of your
-change are understandable. This may include API specs (though not always
-required) or even code snippets. If there's any ambiguity about HOW your
-proposal will be implemented, this is the place to discuss them.
+#### translator.translate
 
-If you are not sure how many implementation details you should include in the
-blueprint, the rule of thumb here is to provide enough context for people to
-understand the proposal. As you move forward with the implementation, you may
-need to add more implementation details to the blueprint, as those may become
-an important context for important technical decisions made along the way. A
-blueprint is also a register of such technical decisions. If a technical
-decision requires additional context before it can be made, you probably should
-document this context in a blueprint. If it is a small technical decision that
-can be made in a merge request by an author and a maintainer, you probably do
-not need to document it here. The impact a technical decision will have is
-another helpful information - if a technical decision is very impactful,
-documenting it, along with associated implementation details, is advisable.
+Accepts the following arguments:
 
-If it's helpful to include workflow diagrams or any other related images.
-Diagrams authored in GitLab flavored markdown are preferred. In cases where
-that is not feasible, images should be placed under `images/` in the same
-directory as the `index.md` for the proposal.
--->
+Argument | Type | Description
+---------|------|------------
+`prompt` | `string` | User-defined string to translate
+`promptLanguage` | `string` | Language of string to translate
+`responseLanguage` | `string` | Language to translate into
+
+Calls Google Translate API and returns a string representing the translated text.
+
+Side effect: Saves the translation to the database for this user.
+
+
+`onSaveCard` | `(front: string, back: string) => void` | Handler when the user saves a card. Called with `(front, back)`.
+
+#### translator.saveCard
+
+Argument | Type | Description
+---------|------|------------
+`front` | `string` | Front of the card
+`back` | `string` | Back of the card
+
+Returns nothing.
+
+Side effect: Card object created that is tied to the currently logged-in user.
 
 ## Alternative Solutions
 
