@@ -48,6 +48,10 @@ Out of scope:
 
 ## Design and implementation details
 
+### User Story
+
+TODO!!!!
+
 ### `Translator` Component
 
 ![Translator Wireframe](./TranslatorWireframe.svg)
