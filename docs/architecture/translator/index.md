@@ -145,7 +145,15 @@ TODO
 
 This route returns a translated phrase and saves an ActivityLog.
 
-Accepts the following arguments:
+Calls Google Translate API and returns a string representing the translated text.
+
+Side effect: Saves the translation to the database for this user.
+
+**Environment Variables**
+
+TODO
+
+**Inputs**
 
 Argument | Type | Description
 ---------|------|------------
@@ -153,12 +161,13 @@ Argument | Type | Description
 `promptLanguage` | `string` | Language of string to translate
 `responseLanguage` | `string` | Language to translate into
 
-Calls Google Translate API and returns a string representing the translated text.
+**Output**
 
-Side effect: Saves the translation to the database for this user.
+TODO
 
+**Side Effects**
 
-`onSaveCard` | `(front: string, back: string) => void` | Handler when the user saves a card. Called with `(front, back)`.
+TODO
 
 #### Save Card Route
 
@@ -170,6 +179,22 @@ Argument | Type | Description
 Returns nothing.
 
 Side effect: Card object created that is tied to the currently logged-in user.
+
+**Environment Variables**
+
+TODO
+
+**Inputs**
+
+TODO
+
+**Output**
+
+TODO
+
+**Side Effects**
+
+TODO
 
 ## Alternative Solutions
 

@@ -237,7 +237,39 @@ TODO
 
 TODO
 
+**Environment Variables**
+
+TODO
+
+**Inputs**
+
+TODO
+
+**Output**
+
+TODO
+
+**Side Effects**
+
+TODO
+
 #### Forgot Password Route
+
+TODO
+
+**Environment Variables**
+
+TODO
+
+**Inputs**
+
+TODO
+
+**Output**
+
+TODO
+
+**Side Effects**
 
 TODO
 
@@ -245,7 +277,39 @@ TODO
 
 TODO
 
+**Environment Variables**
+
+TODO
+
+**Inputs**
+
+TODO
+
+**Output**
+
+TODO
+
+**Side Effects**
+
+TODO
+
 #### Login Route
+
+TODO
+
+**Environment Variables**
+
+TODO
+
+**Inputs**
+
+TODO
+
+**Output**
+
+TODO
+
+**Side Effects**
 
 TODO
 
@@ -253,7 +317,39 @@ TODO
 
 TODO
 
+**Environment Variables**
+
+TODO
+
+**Inputs**
+
+TODO
+
+**Output**
+
+TODO
+
+**Side Effects**
+
+TODO
+
 #### Onboard User Route
+
+TODO
+
+**Environment Variables**
+
+TODO
+
+**Inputs**
+
+TODO
+
+**Output**
+
+TODO
+
+**Side Effects**
 
 TODO
 
@@ -261,7 +357,39 @@ TODO
 
 TODO
 
+**Environment Variables**
+
+TODO
+
+**Inputs**
+
+TODO
+
+**Output**
+
+TODO
+
+**Side Effects**
+
+TODO
+
 #### Reset Password Route
+
+TODO
+
+**Environment Variables**
+
+TODO
+
+**Inputs**
+
+TODO
+
+**Output**
+
+TODO
+
+**Side Effects**
 
 TODO
 
