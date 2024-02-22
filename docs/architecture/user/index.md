@@ -47,28 +47,67 @@ Actor | Action | Design/Link
 ------|------- | ------
 User | goes to home page and clicks Sign Up | [Home Page](#home-page)
 User | fills out Register Page | [Register Page](#register-page)
-Server | carries out the Register Route and sends an email | [Register Route](#register-route)
+System | creates user in DB and sends an email | [Register Route](#register-route)
 User | checks their email and clicks a link | [Email Template](#email-template)
-Server | checks code and activates user | [Activate Route](#activate-route)
-
-TODO - put the list below into the table above
-
-- User:     fills out the Getting Started Page with their name and first LanguagePair.
-- User:     clicks log out.
-- Server:   unsets session cookie if present
-- Frontend: deletes session data if present
-- User:     tries to login.
-- User:     clicks the Forgot Password link.
-- User:     enters their email.
-- Server:   checks whether the email is valid and sends a password reset email.
-- User:     checks their email and clicks the reset link.
-- Frontend shows 
+System | checks code and activates user | [Activate Route](#activate-route)
+User | fills out Getting Started (name, first LanguagePair) | [Getting Started Page](#getting-started-page) 
+System | redirects and displays dashboard | [Dashboard Page](#dashboard-page)
+User | clicks log out. | [Dashboard Page](#dashboard-page)
+System | unsets session cookie if present | [Logout Route](#logout-route)
+User | tries to login. | n/a
+User | clicks the Forgot Password link. | 
+User | enters their email. | 
+System | checks whether the email is valid and sends a password reset email. | 
+User | checks their email and clicks the reset link. | [Forgot Password Page](#forgot-password-page)
+System | shows | 
 
 ### Pages
 
+```mermaid
+flowchart TD
+    Dashboard[Dashboard]
+    GettingStarted[Getting Started]
+
+    Home -->|click| Login
+    Home -->|click| Register
+    Register -->|success| SendEmail[Send Email]
+    SendEmail -->|user action| ActivationEmail
+    ActivationEmail --> CheckActivation{Check Activation}
+    CheckActivation -->|success| GettingStarted
+    Login -->|error| Login
+    Login -->|success| CheckAccount{Check Account}
+    CheckAccount -->|Already setup| Dashboard
+    CheckAccount -->|New user| GettingStarted
+    GettingStarted -->|success| Dashboard
+```
+
+#### Dashboard Page
+
+This page must contain a welcome message that can be checked by the integration test.
+
+#### Email Template
+
+This email contains a link to the [Activate Route](#activate-route) with a token as a GET variable.
+
+#### Forgot Password Page
+
+On this page, the user types in their email and hits submit to send a request to the [Reset Password Request Route](#reset-password-request-route).
+
+#### Getting Started Page
+
+On the page, the user sets up their display name and first LanguagePair. These are saved to their profile upon creation.
+
+Upon submission, this page will submit to the [Onboard User](#onboard-user) route.
+
 #### Home Page
 
-(only specify what is relevant for user accounts - namely presence of Sign Up, Login buttons)
+The home page will contain sign up and login buttons somewhere.
+
+If the user is already logged in, it will redirect to the dashboard.
+
+#### Login Page
+
+On this page, the user types in their email and password and presses enter / clicks the submit button. On success, they are redirected to either the [Getting Started Page](#getting-started-page) or the [Dashboard Page](#dashboard-page)
 
 #### Register Page
 
@@ -80,11 +119,9 @@ It contains the following fields:
 - Password
 - Password Confirmation
 
-#### Email Template
-
-TODO
-
 ### Routes
+
+#### Logout Route
 
 #### Register Route
 
@@ -93,20 +130,6 @@ TODO - make sure everything below this line has been accounted for in the [User 
 
 ----
 
-### Login Flow
-
-### Forgot Password Flow
-
-
-#### Login Page
-
-#### Forgot Password Page
-
-#### Getting Started Page
-
-On the page, the user sets up their display name and first LanguagePair. These are saved to their profile upon creation.
-
-Upon submission, this page will submit to the Onboard User route.
 
 ### Routes
 
@@ -119,7 +142,6 @@ TODO
 
 #### Login Route
 
-#### Logout Route
 
 #### Reset Password Request Route
 
