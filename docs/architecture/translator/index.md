@@ -1,5 +1,5 @@
 ---
-status: proposed
+status: accepted
 creation-date: "2024-01-23"
 authors: [ "@stephengrice" ]
 coach: "n/a"

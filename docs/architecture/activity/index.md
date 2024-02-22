@@ -1,82 +1,12 @@
 ---
-status: proposed
+status: accepted
 creation-date: "2024-01-23"
 authors: [ "@stephengrice" ]
 coach: "n/a"
 approvers: [ "@stephengrice" ]
 ---
 
-<!--
-Original template from GitLab - thank you!
-Here's the source: https://gitlab.com/gitlab-org/gitlab/-/blob/master/doc/architecture/blueprints/_template.md
--->
-
-<!--
-Before you start:
-
-- Copy this file to a sub-directory and call it `index.md` for it to appear in
-  the blueprint directory.
-- Remove comment blocks for sections you've filled in.
-  When your blueprint ready for review, all of these comment blocks should be
-  removed.
-
-To get started with a blueprint you can use this template to inform you about
-what you may want to document in it at the beginning. This content will change
-/ evolve as you move forward with the proposal.  You are not constrained by the
-content in this template. If you have a good idea about what should be in your
-blueprint, you can ignore the template, but if you don't know yet what should
-be in it, this template might be handy.
-
-- **Fill out this file as best you can.** At minimum, you should fill in the
-  "Summary", and "Motivation" sections.  These can be brief and may be a copy
-  of issue or epic descriptions if the initiative is already on Product's
-  roadmap.
-- **Create a MR for this blueprint.** Assign it to an Architecture Evolution
-  Coach (i.e. a Principal+ engineer).
-- **Merge early and iterate.** Avoid getting hung up on specific details and
-  instead aim to get the goals of the blueprint clarified and merged quickly.
-  The best way to do this is to just start with the high-level sections and fill
-  out details incrementally in subsequent MRs.
-
-Just because a blueprint is merged does not mean it is complete or approved.
-Any blueprint is a working document and subject to change at any time.
-
-When editing blueprints, aim for tightly-scoped, single-topic MRs to keep
-discussions focused. If you disagree with what is already in a document, open a
-new MR with suggested changes.
-
-If there are new details that belong in the blueprint, edit the blueprint. Once
-a feature has become "implemented", major changes should get new blueprints.
-
-The canonical place for the latest set of instructions (and the likely source
-of this file) is [here](/doc/architecture/blueprints/_template.md).
-
-Blueprint statuses you can use:
-
-- "proposed"
-- "accepted"
-- "ongoing"
-- "implemented"
-- "postponed"
-- "rejected"
-
--->
-
-<!-- Blueprints often contain forward-looking statements -->
-<!-- vale gitlab.FutureTense = NO -->
-
-# {+ Title of Blueprint +}
-
-<!--
-This is the title of your blueprint. Keep it short, simple, and descriptive. A
-good title can help communicate what the blueprint is and should be considered
-as part of any review.
--->
-
-<!--
-For long pages, consider creating a table of contents.
-The `[_TOC_]` function is not supported on docs.gitlab.com.
--->
+# Activity Logging
 
 ## Summary
 
