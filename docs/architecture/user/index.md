@@ -87,7 +87,7 @@ flowchart TD
 
 #### ActivationFailedPage
 
-TODO
+This page displays a simple message telling the user that their account activation failed.
 
 #### Dashboard Page
 
@@ -126,7 +126,12 @@ It contains the following fields:
 
 #### Reset Password Page
 
-TODO
+This page shows a form for the user to reset their password, including these components:
+
+- Old password
+- New password
+- New password confirmation
+- Submit button
 
 ### Email Templates
 
@@ -136,11 +141,15 @@ This email contains a link to the [Activate Route](#activate-route) with a token
 
 #### ForgotPasswordEmail
 
-TODO
+This password contains a special link that the user can click to open the ResetPasswordPage and reset their password.
 
 ### Routes
 
 #### Activate Route
+
+TODO
+
+#### Forgot Password Route
 
 TODO
 
@@ -157,10 +166,6 @@ TODO
 TODO
 
 #### Register Route
-
-TODO
-
-#### Request Reset Password Route
 
 TODO
 
