@@ -43,51 +43,56 @@ Out of scope:
 
 ### User Story
 
-Actor | Action | Design/Link
-------|------- | ------
-User | goes to home page and clicks Sign Up | [Home Page](#home-page)
-User | fills out Register Page | [Register Page](#register-page)
-System | creates user in DB and sends an email | [Register Route](#register-route)
-User | checks their email and clicks a link | [Email Template](#email-template)
-System | checks code and activates user | [Activate Route](#activate-route)
-User | fills out Getting Started (name, first LanguagePair) | [Getting Started Page](#getting-started-page) 
-System | redirects and displays dashboard | [Dashboard Page](#dashboard-page)
-User | clicks log out. | [Dashboard Page](#dashboard-page)
-System | unsets session cookie if present | [Logout Route](#logout-route)
-User | tries to login. | n/a
-User | clicks the Forgot Password link. | 
-User | enters their email. | 
-System | checks whether the email is valid and sends a password reset email. | 
-User | checks their email and clicks the reset link. | [Forgot Password Page](#forgot-password-page)
-System | shows | 
-
-### Pages
+The user story is summarized by this flow chart.
 
 ```mermaid
 flowchart TD
-    Dashboard[Dashboard]
-    GettingStarted[Getting Started]
+    HomePage -->|clicks login| LoginPage
+    HomePage -->|clicks sign up| RegisterPage
+    RegisterPage -->|submits invalid form| RegisterPage
+    RegisterPage -->|submits valid form| SendEmail{RegisterRoute}
+    SendEmail -->|user checks email| ActivationEmail
+    ActivationEmail -->|user clicks link| CheckActivation{ActivateRoute}
+    CheckActivation -->|invalid| ActivationFailedPage
+    CheckActivation -->|success| GettingStartedPage
+    LoginPage -->|error| LoginPage
+    LoginPage -->|success| CheckAccount{LoginRoute}
+    LoginPage -->|clicks forgot password| ForgotPasswordPage
+    ForgotPasswordPage -->|submits| ForgotPasswordRoute{ForgotPasswordRoute}
+    ForgotPasswordRoute --> ForgotPasswordEmail
+    ForgotPasswordEmail --> ResetPasswordPage
+    ResetPasswordPage --> ResetPasswordRoute{ResetPasswordRoute}
+    ResetPasswordRoute --> LoginPage
+    CheckAccount -->|Already setup| DashboardPage
+    CheckAccount -->|New user| GettingStartedPage
+    GettingStartedPage -->|success| OnboardUserRoute{OnboardUserRoute}
+    OnboardUserRoute -->|success| DashboardPage
+    DashboardPage -->|clicks logout| LogoutRoute{LogoutRoute}
+    LogoutRoute -->|delete session| HomePage
 
-    Home -->|click| Login
-    Home -->|click| Register
-    Register -->|success| SendEmail[Send Email]
-    SendEmail -->|user action| ActivationEmail
-    ActivationEmail --> CheckActivation{Check Activation}
-    CheckActivation -->|success| GettingStarted
-    Login -->|error| Login
-    Login -->|success| CheckAccount{Check Account}
-    CheckAccount -->|Already setup| Dashboard
-    CheckAccount -->|New user| GettingStarted
-    GettingStarted -->|success| Dashboard
+    %% Email Templates
+    style ActivationEmail fill:LightGoldenRodYellow,color:black
+    style ForgotPasswordEmail fill:LightGoldenRodYellow,color:black
+    %% Routes
+    style SendEmail fill:pink,color:black
+    style CheckActivation fill:pink,color:black
+    style CheckAccount fill:pink,color:black
+    style LogoutRoute fill:pink,color:black
+    style OnboardUserRoute fill:pink,color:black
+    style ForgotPasswordRoute fill:pink,color:black
+    style ResetPasswordRoute fill:pink,color:black
 ```
+
+### Pages
+
+#### ActivationFailedPage
+
+TODO
 
 #### Dashboard Page
 
 This page must contain a welcome message that can be checked by the integration test.
 
-#### Email Template
-
-This email contains a link to the [Activate Route](#activate-route) with a token as a GET variable.
 
 #### Forgot Password Page
 
@@ -119,35 +124,49 @@ It contains the following fields:
 - Password
 - Password Confirmation
 
-### Routes
-
-#### Logout Route
-
-#### Register Route
-
-
-TODO - make sure everything below this line has been accounted for in the [User Story](#user-story)
-
-----
-
-
-### Routes
-
-
-**AKA: Create User Route**
+#### Reset Password Page
 
 TODO
 
+### Email Templates
+
+#### Activation Email
+
+This email contains a link to the [Activate Route](#activate-route) with a token as a GET variable.
+
+#### ForgotPasswordEmail
+
+TODO
+
+### Routes
+
 #### Activate Route
+
+TODO
 
 #### Login Route
 
+TODO
 
-#### Reset Password Request Route
+#### Logout Route
 
-#### Change Password Route
+TODO
 
-#### Onboard User
+#### Onboard User Route
+
+TODO
+
+#### Register Route
+
+TODO
+
+#### Request Reset Password Route
+
+TODO
+
+#### Reset Password Route
+
+TODO
 
 ### DB Design
 
