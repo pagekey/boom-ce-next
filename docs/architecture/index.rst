@@ -18,7 +18,7 @@ All of the features documented in the ``architecture`` folder will follow this b
         postponed --> ongoing
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
    activity/index.md
