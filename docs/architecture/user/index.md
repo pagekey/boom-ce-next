@@ -70,6 +70,9 @@ flowchart TD
     DashboardPage -->|clicks logout| LogoutRoute{LogoutRoute}
     LogoutRoute -->|delete session| HomePage
 
+    GetLanguagesRoute <-->|initial info| GettingStartedPage 
+    GetLanguagesRoute{GetLanguagesRoute}
+
     %% Email Templates
     style ActivationEmail fill:LightGoldenRodYellow,color:black
     style ForgotPasswordEmail fill:LightGoldenRodYellow,color:black
@@ -77,6 +80,7 @@ flowchart TD
     style SendEmail fill:pink,color:black
     style CheckActivation fill:pink,color:black
     style CheckAccount fill:pink,color:black
+    style GetLanguagesRoute fill:pink,color:black
     style LogoutRoute fill:pink,color:black
     style OnboardUserRoute fill:pink,color:black
     style ForgotPasswordRoute fill:pink,color:black
@@ -89,14 +93,39 @@ flowchart TD
 
 This page displays a simple message telling the user that their account activation failed.
 
+**Components**
+
+- Activation message
+- Home button
+
+**Requests**
+
+None
+
 #### Dashboard Page
 
-This page must contain a welcome message that can be checked by the integration test.
+This page contains a welcome message for the now logged-in user.
 
+**Components**
+
+- Welcome text
+
+**Requests**
+
+None
 
 #### Forgot Password Page
 
-On this page, the user types in their email and hits submit to send a request to the [Reset Password Request Route](#reset-password-request-route).
+On this page, the user types in their email and hits submit to send a request to the [Forgot Password Route](#forgot-password-route).
+
+**Components**
+
+- Email field
+- Submit button
+
+**Requests**
+
+- Forgot Password Route
 
 #### Getting Started Page
 
@@ -104,34 +133,71 @@ On the page, the user sets up their display name and first LanguagePair. These a
 
 Upon submission, this page will submit to the [Onboard User](#onboard-user) route.
 
+**Components**
+
+- Display name field
+- Native language multi-select
+- Target language multi-select
+
+**Requests**
+
+- Get Languages Route
+
 #### Home Page
 
 The home page will contain sign up and login buttons somewhere.
 
 If the user is already logged in, it will redirect to the dashboard.
 
+**Components**
+
+TODO
+
+**Requests**
+
+TODO
+
 #### Login Page
 
 On this page, the user types in their email and password and presses enter / clicks the submit button. On success, they are redirected to either the [Getting Started Page](#getting-started-page) or the [Dashboard Page](#dashboard-page)
+
+**Components**
+
+TODO
+
+**Requests**
+
+TODO
 
 #### Register Page
 
 This page lets the user register. The fewest fields possible are included to get the user signed up as quickly as possible. Additional fields will be filled in after the user activates their account.
 
-It contains the following fields:
+**Components**
 
-- Email
-- Password
-- Password Confirmation
+- Email field
+- Password field
+- Password Confirmation field
+
+**Requests**
+
+TODO
 
 #### Reset Password Page
 
 This page shows a form for the user to reset their password, including these components:
 
-- Old password
-- New password
-- New password confirmation
+**Components**
+
+- Old password field
+- New password field
+- New password confirmation field
 - Submit button
+
+**Requests**
+
+TODO
+
 
 ### Email Templates
 
@@ -139,9 +205,17 @@ This page shows a form for the user to reset their password, including these com
 
 This email contains a link to the [Activate Route](#activate-route) with a token as a GET variable.
 
+**Components**
+
+TODO
+
 #### ForgotPasswordEmail
 
 This password contains a special link that the user can click to open the ResetPasswordPage and reset their password.
+
+**Components**
+
+TODO
 
 ### Routes
 
@@ -150,6 +224,10 @@ This password contains a special link that the user can click to open the ResetP
 TODO
 
 #### Forgot Password Route
+
+TODO
+
+#### Get Languages Route
 
 TODO
 
