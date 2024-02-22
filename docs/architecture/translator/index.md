@@ -50,28 +50,61 @@ Out of scope:
 
 ### User Story
 
-TODO!!!!
+1. User opens Boom Dashboard.
+1. User clicks Translate button.
+1. User types something in.
+1. User copies translation.
+1. User saves entire phrase as Card.
+1. User swaps languages.
+1. User enters new phrase in box.
+1. User clicks "Save Word" button and select ONE word to save as a card.
+1. User swaps languages again and chooses a new target langauge.
+1. User returns to Dashboard.
+1. User clicks into the Translator again and the new language they chose is still selected.
 
-### `Translator` Component
+```mermaid
+flowchart TD
+    %% Declarations
+    %% ------------
+    %% Email Templates
+%%  (none)
+    %% Pages
+    DashboardPage[DashboardPage]
+    TranslatePage[TranslatePage]
+    %% Routes
+    TranslateRoute{TranslateRoute}
+    SaveCardRoute{SaveCardRoute}
+
+    %% Connections
+    %% ------------
+    DashboardPage -->|clicks translate| TranslatePage
+    TranslatePage -->|types translation| TranslateRoute
+    TranslatePage -->|Save phrase| SaveCardRoute
+    TranslatePage -->|Save word| SaveCardRoute
+    
+    %% Styles
+    %% ------------
+    %% Routes
+    style TranslateRoute fill:pink,color:black
+    style SaveCardRoute fill:pink,color:black
+```
+
+### Components
+
+#### Translator
+
+**Wireframe**
 
 ![Translator Wireframe](./TranslatorWireframe.svg)
 
-The `Translator` component contains the following elements:
-
-Name | Type | Description
------|------|------------
-Left   | TextArea | Left-hand side (text to translate)
-Right  | Text  | Right-hand side (translated text)
-SwapButton | Button | Button to swap the languages
-SaveCard | Button | Button to save the translation as a card
-SaveSingleCard | Button | Button to save a single word as a card. On click, select word(s) from each side
-
-It accepts these props from the parent:
+**Props**
 
 Name | Type | Description
 -----|------|------------
 `translate` | `(prompt: string, promptLanguage: string, responseLanguage: string) => (response: string)` | Request a translation from the server.
 `saveCard` | `(front: string, back: string) => void` | Save a card to the server.
+
+**State**
 
 It maintains the following internal state:
 
@@ -82,13 +115,35 @@ Name | Type | Description
 `right` | `string` | Current text in right box
 `rightLanguage` | `string` | Language of text in right box. SwapButton flips this with left.
 
-Internally, there is a list of supported languages and a hardcoded default value for the left and right languages at first render.
+**Sub-Components**
 
-### Server-Side Routes
+Name | Type | Description
+-----|------|------------
+Left   | TextArea | Left-hand side (text to translate)
+Right  | Text  | Right-hand side (translated text)
+SwapButton | Button | Button to swap the languages
+SaveCard | Button | Button to save the translation as a card
+SaveSingleCard | Button | Button to save a single word as a card. On click, select word(s) from each side
 
-The routes for the Translator will be stored in a tRPC router called `translator`.
+### Pages
 
-#### translator.translate
+#### Translate Page
+
+This page contains the translate component and has code to make requests to the server.
+
+**Components**
+
+TODO
+
+**Requests**
+
+TODO
+
+### Routes
+
+#### Translate Route
+
+This route returns a translated phrase and saves an ActivityLog.
 
 Accepts the following arguments:
 
@@ -105,7 +160,7 @@ Side effect: Saves the translation to the database for this user.
 
 `onSaveCard` | `(front: string, back: string) => void` | Handler when the user saves a card. Called with `(front, back)`.
 
-#### translator.saveCard
+#### Save Card Route
 
 Argument | Type | Description
 ---------|------|------------

@@ -47,6 +47,14 @@ The user story is summarized by this flow chart.
 
 ```mermaid
 flowchart TD
+    %% Declarations
+    %% ------------
+    %% Email Templates
+%%  (none)
+    %% Routes
+
+    %% Connections
+    %% ------------
     HomePage -->|clicks login| LoginPage
     HomePage -->|clicks sign up| RegisterPage
     RegisterPage -->|submits invalid form| RegisterPage
@@ -73,6 +81,8 @@ flowchart TD
     GetLanguagesRoute <-->|initial info| GettingStartedPage 
     GetLanguagesRoute{GetLanguagesRoute}
 
+    %% Styles
+    %% ------------
     %% Email Templates
     style ActivationEmail fill:LightGoldenRodYellow,color:black
     style ForgotPasswordEmail fill:LightGoldenRodYellow,color:black
@@ -86,6 +96,10 @@ flowchart TD
     style ForgotPasswordRoute fill:pink,color:black
     style ResetPasswordRoute fill:pink,color:black
 ```
+
+### Components
+
+None
 
 ### Pages
 
