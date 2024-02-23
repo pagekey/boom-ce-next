@@ -10,99 +10,55 @@ approvers: [ "@stephengrice" ]
 
 ## Summary
 
-<!--
-This section is very important, because very often it is the only section that
-will be read by team members. We sometimes call it an "Executive summary",
-because executives usually don't have time to read entire document like this.
-Focus on writing this section in a way that anyone can understand what is says,
-the audience here is everyone: executives, product managers, engineers, wider
-community members.
-
-A good summary is probably at least a paragraph in length.
--->
+The Cards (or flashcards) feature of Boom allows users to save words and phrases that they want to remember as flashcards. While a mundane feature on its own, this becomes much more powerful when included conveniently in other features. This design doc proposes a way to store and retrieve cards as simply as possible. Future design docs present more elaborate ways to review cards or analyze card data for patterns.
 
 ## Motivation
 
-<!--
-This section is for explicitly listing the motivation, goals and non-goals of
-this blueprint. Describe why the change is important, all the opportunities,
-and the benefits to users.
-
-The motivation section can optionally provide links to issues that demonstrate
-interest in a blueprint within the wider GitLab community. Links to
-documentation for competing products and services is also encouraged in cases
-where they demonstrate clear gaps in the functionality GitLab provides.
-
-For concrete proposals we recommend laying out goals and non-goals explicitly,
-but this section may be framed in terms of problem statements, challenges, or
-opportunities. The latter may be a more suitable framework in cases where the
-problem is not well-defined or design details not yet established.
--->
+This feature allows users to track words they've never encountered before. This plays heavily into the overall goal of Boom being an **integrated** language app. Users should be able to do everything in one place. One of the first things you need to do when learning a language is start remembering and reviewing the things you've learned.
 
 ### Goals
 
-<!--
-List the specific goals / opportunities of the blueprint.
-
-- What is it trying to achieve?
-- How will we know that this has succeeded?
-- What are other less tangible opportunities here?
--->
+- Provide a way to store cards in the database
+- Provide routes for storing cards that can be re-used by other features
+- Provide routes for retrieving cards efficiently for review
+- Provide pages for card CRUD: index, create, show, update, delete.
+- Provide page for card review.
 
 ### Non-Goals
 
-<!--
-Listing non-goals helps to focus discussion and make progress. This section is
-optional.
+Out of scope:
 
-- What is out of scope for this blueprint?
--->
+- Any sort of fancy analytics or review features for cards.
+- Spaced-repetition system (SRS) algorithms - these will need to be tackled as an effort of their own.
 
 ## Proposal
 
-<!--
-This is where we get down to the specifics of what the proposal actually is,
-but keep it simple!  This should have enough detail that reviewers can
-understand exactly what you're proposing, but should not include things like
-API designs or implementation. The "Design Details" section below is for the
-real nitty-gritty.
+The Cards feature is implemented using a Card database table and several standard routes to read and write them.
 
-You might want to consider including the pros and cons of the proposed solution so that they can be
-compared with the pros and cons of alternatives.
--->
+Additionally, pages are provided for creating, reading, updating, and deleting the cards. These CRUD components are designed to be general enough that future features will be able to re-use them. They are not specific to the Cards feature.
+
+A special review component and page are also implemented.
 
 ## Design and implementation details
 
-<!--
-This section should contain enough information that the specifics of your
-change are understandable. This may include API specs (though not always
-required) or even code snippets. If there's any ambiguity about HOW your
-proposal will be implemented, this is the place to discuss them.
+### User Story
 
-If you are not sure how many implementation details you should include in the
-blueprint, the rule of thumb here is to provide enough context for people to
-understand the proposal. As you move forward with the implementation, you may
-need to add more implementation details to the blueprint, as those may become
-an important context for important technical decisions made along the way. A
-blueprint is also a register of such technical decisions. If a technical
-decision requires additional context before it can be made, you probably should
-document this context in a blueprint. If it is a small technical decision that
-can be made in a merge request by an author and a maintainer, you probably do
-not need to document it here. The impact a technical decision will have is
-another helpful information - if a technical decision is very impactful,
-documenting it, along with associated implementation details, is advisable.
+TODO
 
-If it's helpful to include workflow diagrams or any other related images.
-Diagrams authored in GitLab flavored markdown are preferred. In cases where
-that is not feasible, images should be placed under `images/` in the same
-directory as the `index.md` for the proposal.
--->
+### Components
+
+TODO
+
+### Pages
+
+TODO
+
+### Routes
+
+TODO
 
 ## Alternative Solutions
 
-<!--
-It might be a good idea to include a list of alternative solutions or paths considered, although it is not required. Include pros and cons for
-each alternative solution/path.
+What is proposed above is likely the simplest possible solution. Future features will augment this and make it more interesting.
 
-"Do nothing" and its pros and cons could be included in the list too.
--->
+Do nothing: Not including this feature would require users to switch to another app whenever they learn a new word or phrase, completely defeating the purpose of Boom.
