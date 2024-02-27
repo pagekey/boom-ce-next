@@ -10,53 +10,34 @@ approvers: [ "@stephengrice" ]
 
 ## Summary
 
-<!--
-This section is very important, because very often it is the only section that
-will be read by team members. We sometimes call it an "Executive summary",
-because executives usually don't have time to read entire document like this.
-Focus on writing this section in a way that anyone can understand what is says,
-the audience here is everyone: executives, product managers, engineers, wider
-community members.
+Activity Logging is perhaps the most important feature in Boom. It enables the user to keep track of their progress. Being able to look back on all the hard work they did, they will feel a sense of accomplishment and be excited to get back to it.
 
-A good summary is probably at least a paragraph in length.
--->
+The Activity Logging feature provides an easy way for any other Boom feature to track user actions. It also provides an easy way to review activity on each user's profile.
+
+Privacy settings on each log allows users to keep their actions private if they would prefer.
 
 ## Motivation
 
-<!--
-This section is for explicitly listing the motivation, goals and non-goals of
-this blueprint. Describe why the change is important, all the opportunities,
-and the benefits to users.
+Learning a language is a long, complex, trying process. You can't learn a language in a day.
 
-The motivation section can optionally provide links to issues that demonstrate
-interest in a blueprint within the wider GitLab community. Links to
-documentation for competing products and services is also encouraged in cases
-where they demonstrate clear gaps in the functionality GitLab provides.
+The ability to track what you've done so far makes it easier to see the progress you've made and stay motivated.
 
-For concrete proposals we recommend laying out goals and non-goals explicitly,
-but this section may be framed in terms of problem statements, challenges, or
-opportunities. The latter may be a more suitable framework in cases where the
-problem is not well-defined or design details not yet established.
--->
+It also lends itself to social aspects of the app - people can check out how their friends are learning and possibly find new techniques, or even learn new vocabulary if they happen to be learning the same language.
 
 ### Goals
 
-<!--
-List the specific goals / opportunities of the blueprint.
-
-- What is it trying to achieve?
-- How will we know that this has succeeded?
-- What are other less tangible opportunities here?
--->
+- Routes for saving activities exist.
+  - They are general enough that any future Boom feature will be able to use them.
+- Routes for querying activies are implemented.
+- Components for displaying activites are implemented.
+- Activity privacy settings are implemented.
+- User profile exists and shows latest activities for the user.
 
 ### Non-Goals
 
-<!--
-Listing non-goals helps to focus discussion and make progress. This section is
-optional.
+Out of scope:
 
-- What is out of scope for this blueprint?
--->
+- User creation. For this, see `user/index.md`.
 
 ## Proposal
 
@@ -73,36 +54,27 @@ compared with the pros and cons of alternatives.
 
 ## Design and implementation details
 
-<!--
-This section should contain enough information that the specifics of your
-change are understandable. This may include API specs (though not always
-required) or even code snippets. If there's any ambiguity about HOW your
-proposal will be implemented, this is the place to discuss them.
+(note: title, description, tags, category, custom fields?)
 
-If you are not sure how many implementation details you should include in the
-blueprint, the rule of thumb here is to provide enough context for people to
-understand the proposal. As you move forward with the implementation, you may
-need to add more implementation details to the blueprint, as those may become
-an important context for important technical decisions made along the way. A
-blueprint is also a register of such technical decisions. If a technical
-decision requires additional context before it can be made, you probably should
-document this context in a blueprint. If it is a small technical decision that
-can be made in a merge request by an author and a maintainer, you probably do
-not need to document it here. The impact a technical decision will have is
-another helpful information - if a technical decision is very impactful,
-documenting it, along with associated implementation details, is advisable.
+### User Story
 
-If it's helpful to include workflow diagrams or any other related images.
-Diagrams authored in GitLab flavored markdown are preferred. In cases where
-that is not feasible, images should be placed under `images/` in the same
-directory as the `index.md` for the proposal.
--->
+TODO
+
+### Components
+
+TODO
+
+### Pages
+
+TODO
+
+### Routes
+
+TODO
 
 ## Alternative Solutions
 
-<!--
-It might be a good idea to include a list of alternative solutions or paths considered, although it is not required. Include pros and cons for
-each alternative solution/path.
-
-"Do nothing" and its pros and cons could be included in the list too.
--->
+- Use the data produced by other features as-is:
+  - Pro: don't have to do anything RIGHT NOW.
+  - Con: it will be a MESS trying to query each feature separately - each will have a different interface and way of collating activity data, if it's even possible.
+- Do nothing: lame because you can't see any progress as you work.

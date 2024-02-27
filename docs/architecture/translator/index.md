@@ -32,7 +32,6 @@ This feature can also be integrated into other views within Boom.
 
 Out of scope:
 
-- How local translation history is synced with server. See `storage` blueprint.
 - How cards are saved. See `cards` blueprint.
 
 ## Proposal
