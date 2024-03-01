@@ -242,25 +242,35 @@ This password contains a special link that the user can click to open the ResetP
 
 ### Routes
 
+Any output messages should be understandable enough to be displayed to the user.
+
 #### Activate Route
 
-TODO
+This route handles the link that is in the user's [activation email](#activation-email). It checks the code provided and, if valid, sets the user's account o active.
 
 **Environment Variables**
 
-TODO
+None
 
 **Inputs**
 
-TODO
+GET variables:
+
+- `email`: Email of user being activated
+- `code`: Corresponds to the `activationCode` field on the `User` DB object.
 
 **Output**
 
-TODO
+JSON object:
+
+Field | Type | Description
+------|------|------------
+status|'success' or 'error' | whether the request succeeded
+message|string|User-facing message describing error or "Success"
 
 **Side Effects**
 
-TODO
+- If code matches, user is set to active.
 
 #### Forgot Password Route
 
@@ -446,6 +456,7 @@ name | String? | Display name
 email | String | Unique email
 passwordHash | String | Hashed password
 passwordSalt | String | Salt for password
+activationCode | String | Randomly generated string for email activation
 interfaceLanguage | Language | Language that the user prefers to display the application in
 
 #### Language Pair
