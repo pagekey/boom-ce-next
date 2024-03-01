@@ -9,6 +9,7 @@ Check out the `architecture` folder for documentation of current and future Boom
 
    guides/index
    architecture/index
+   blog/index
    CHANGELOG
 
 
