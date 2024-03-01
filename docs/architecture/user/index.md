@@ -187,15 +187,16 @@ None - it uses the [User Context](#usercontext) to get information about the log
 
 #### Login Page
 
-On this page, the user types in their email and password and presses enter / clicks the submit button. On success, they are redirected to either the [Getting Started Page](#getting-started-page) or the [Dashboard Page](#dashboard-page)
+On this page, the user types in their email and password and presses enter / clicks the submit button. On error, the error message from the server is displayed. On success, they are redirected to either the [Getting Started Page](#getting-started-page) or the [Dashboard Page](#dashboard-page)
 
 **Components**
 
-TODO
+- Email input
+- Password input
 
 **Requests**
 
-TODO
+- [Login Route](#login-route): called on submit
 
 #### Register Page
 
@@ -209,7 +210,7 @@ This page lets the user register. The fewest fields possible are included to get
 
 **Requests**
 
-TODO
+- [Register Route](#register-route): Called on submit
 
 #### Reset Password Page
 
@@ -224,7 +225,7 @@ This page shows a form for the user to reset their password, including these com
 
 **Requests**
 
-TODO
+- [Reset Password Route](#reset-password-route): Called on submit
 
 
 ### Email Templates
@@ -233,17 +234,11 @@ TODO
 
 This email contains a link to the [Activate Route](#activate-route) with a token as a GET variable.
 
-**Components**
-
-TODO
 
 #### ForgotPasswordEmail
 
 This password contains a special link that the user can click to open the ResetPasswordPage and reset their password.
 
-**Components**
-
-TODO
 
 ### Routes
 
