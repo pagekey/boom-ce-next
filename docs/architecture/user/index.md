@@ -101,6 +101,14 @@ flowchart TD
 
 None
 
+### Contexts
+
+#### User Context
+
+This context provides the current user object if the user is logged in. Otherwise, it returns `undefined`.
+
+It gets this information by making a request to the [Get User Route](#get-user-route)
+
 ### Pages
 
 #### ActivationFailedPage
@@ -165,11 +173,17 @@ If the user is already logged in, it will redirect to the dashboard.
 
 **Components**
 
-TODO
+- Welcome message
+- Login button (included in Layout)
+- Sign-up button (included in Layout)
+
+**Effects**
+
+Redirect if user is already logged in.
 
 **Requests**
 
-TODO
+None - it uses the [User Context](#usercontext) to get information about the logged-in user and determine whether to redirect.
 
 #### Login Page
 
@@ -293,6 +307,34 @@ TODO
 
 TODO
 
+#### Get Current User Route
+
+This route returns information about the currently logged-in user.
+
+**Environment Variables**
+
+None
+
+**Inputs**
+
+The only input is `boom_auth`, a signed JWT provided to the user as the output of the [Login Route](#login-route).
+
+- `boom_auth`: **cookie** containing JWT auth token
+- `boom_auth`: **POST variable** containing JWT auth token (for mobile clients)
+
+**Output**
+
+The [User](#user) object, with the following fields **REMOVED** for privacy/security purposes:
+
+- `id`
+- `email`
+- `passwordHash`
+- `passwordSalt`
+
+**Side Effects**
+
+None
+
 #### Login Route
 
 TODO
@@ -405,6 +447,7 @@ Field | Type | Description
 ------|------|------------
 id | Int | Auto-incremented unique id
 created | DateTime | Time of registration
+name | String? | Display name
 email | String | Unique email
 passwordHash | String | Hashed password
 passwordSalt | String | Salt for password
