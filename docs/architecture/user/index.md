@@ -242,8 +242,6 @@ This password contains a special link that the user can click to open the ResetP
 
 ### Routes
 
-Any output messages should be understandable enough to be displayed to the user.
-
 #### Activate Route
 
 This route handles the link that is in the user's [activation email](#activation-email). It checks the code provided and, if valid, sets the user's account o active.
@@ -261,12 +259,7 @@ GET variables:
 
 **Output**
 
-JSON object:
-
-Field | Type | Description
-------|------|------------
-status|'success' or 'error' | whether the request succeeded
-message|string|User-facing message describing error or "Success"
+A [Route Response](#route-response) object
 
 **Side Effects**
 
@@ -274,43 +267,43 @@ message|string|User-facing message describing error or "Success"
 
 #### Forgot Password Route
 
-TODO
+This route sends an email to reset a user's password.
 
 **Environment Variables**
 
-TODO
+None
 
 **Inputs**
 
-TODO
+- `email`: GET variable for which email account to reset
 
 **Output**
 
-TODO
+A [Route Response](#route-response) object.
 
 **Side Effects**
 
-TODO
+If the user exists in the DB, an email is sent to `email`. Otherwise, it fails and returns an error.
 
 #### Get Languages Route
 
-TODO
+This route returns the list of currently supported languages from the Boom database.
 
 **Environment Variables**
 
-TODO
+None
 
 **Inputs**
 
-TODO
+None
 
 **Output**
 
-TODO
+List of [Language](#language) objects
 
 **Side Effects**
 
-TODO
+None
 
 #### Get Current User Route
 
@@ -342,23 +335,32 @@ None
 
 #### Login Route
 
-TODO
+This route logs the user in if the user exists and the provided password matches the `passwordHash` field in the [User](#user) object.
 
 **Environment Variables**
 
-TODO
+None
 
 **Inputs**
 
-TODO
+POST variables:
+
+- `email`
+- `password`
 
 **Output**
 
-TODO
+JSON object:
+
+Field | Type | Description
+------|------|------------
+`status` | `success` or `error` | Status of request
+`message` | `string` | Message describing error or "Success"
+`boom_auth` | `string?` | The authorization JWT to use for making authenticated requests as the logged-in user or undefined on failure.
 
 **Side Effects**
 
-TODO
+- Cookie `boom_auth` is set.
 
 #### Logout Route
 
@@ -439,6 +441,19 @@ TODO
 **Side Effects**
 
 TODO
+
+### Models
+
+These are data structures that are not stored in the database.
+
+#### Route Response
+
+Generic response object to provide info on status/errors. Any output messages should be understandable enough to be displayed to the user.
+
+Field | Type | Description
+------|------|------------
+status|'success' or 'error' | whether the request succeeded
+message|string|User-facing message describing error or "Success"
 
 ### DB Design
 
