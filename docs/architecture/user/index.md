@@ -138,7 +138,7 @@ None
 
 #### Forgot Password Page
 
-On this page, the user types in their email and hits submit to send a request to the [Forgot Password Route](#forgot-password-route).
+On this page, the user types in their email and hits submit to send a request to the [Forgot Password Route](#forgot-password-route). After sending the request, it displays a confirmation message and a link to the home page.
 
 **Components**
 
@@ -149,7 +149,7 @@ On this page, the user types in their email and hits submit to send a request to
 
 - Forgot Password Route
 
-#### Getting Started Page
+#### Onboard User Page
 
 On the page, the user sets up their display name and first LanguagePair. These are saved to their profile upon creation.
 
@@ -187,7 +187,10 @@ None - it uses the [User Context](#usercontext) to get information about the log
 
 #### Login Page
 
-On this page, the user types in their email and password and presses enter / clicks the submit button. On error, the error message from the server is displayed. On success, they are redirected to either the [Getting Started Page](#getting-started-page) or the [Dashboard Page](#dashboard-page)
+On this page, the user types in their email and password and presses enter / clicks the submit button. On error, the error message from the server is displayed. On success:
+
+- If User's `name` field is undefined or `activeLanguagePairId` is undefined, redirect to [Onboard User Page](#onboard-user-page).
+- Else, redirect to [Dashboard Page](#dashboard-page).
 
 **Components**
 
@@ -244,63 +247,100 @@ This password contains a special link that the user can click to open the ResetP
 
 #### Activate Route
 
-TODO
+This route handles the link that is in the user's [activation email](#activation-email). It checks the code provided and, if valid, sets the user's account o active.
 
 **Environment Variables**
 
-TODO
+None
 
 **Inputs**
 
-TODO
+POST this JSON object:
+
+Field | Type | Description
+------|------|------------
+`email`|`string`|Email of user being activated
+`code`|`string`|The activation code from the email. Corresponds to `activationCode` field in [User](#user).
+
+Example:
+
+```json
+{
+  "email": "me@email.com",
+  "code": "abcdefghijklmnopqrstuvwxyz1234567890"
+}
+```
 
 **Output**
 
-TODO
+A [Route Response](#route-response) object
 
 **Side Effects**
 
-TODO
+- If code matches, user is set to active.
 
 #### Forgot Password Route
 
-TODO
+This route sends an email to reset a user's password.
 
 **Environment Variables**
 
-TODO
+None
 
 **Inputs**
 
-TODO
+POST this JSON object:
+
+Field | Type | Description
+------|------|------------
+`email`|`string`|email for which account to reset
+
+Example:
+
+```json
+{
+  "email": "me@email.com"
+}
+```
 
 **Output**
 
-TODO
+A [Route Response](#route-response) object.
 
 **Side Effects**
 
-TODO
+- If the user exists in the DB:
+  - The user's `activationCode` field has been reset to some new random value.
+  - A [Forgot Password Email](#forgot-password-email) is sent to `email` with a link to `ResetPasswordPage` (containing the `activationCode`). Otherwise, it fails and returns an error.
 
 #### Get Languages Route
 
-TODO
+This route returns the list of currently supported languages from the Boom database.
 
 **Environment Variables**
 
-TODO
+None
 
 **Inputs**
 
-TODO
+None
 
 **Output**
 
-TODO
+List of [Language](#language) objects
+
+Example:
+
+```json
+[
+  { "id": 1, ... },
+  { "id": 2, ... } // Actual fields are omitted - see Language object below
+]
+```
 
 **Side Effects**
 
-TODO
+None
 
 #### Get Current User Route
 
@@ -315,7 +355,13 @@ None
 The only input is `boom_auth`, a signed JWT provided to the user as the output of the [Login Route](#login-route).
 
 - `boom_auth`: **cookie** containing JWT auth token
-- `boom_auth`: **POST variable** containing JWT auth token (for mobile clients)
+- `boom_auth`: **Authorization header** containing JWT auth token (for mobile clients)
+
+Example header:
+
+```
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+```
 
 **Output**
 
@@ -326,109 +372,224 @@ The [User](#user) object, with the following fields **REMOVED** for privacy/secu
 - `passwordHash`
 - `passwordSalt`
 
+Example:
+
+```json
+{
+  "id": 1,
+  ... // Further fields omitted, see User design
+}
+```
+
 **Side Effects**
 
 None
 
 #### Login Route
 
-TODO
+This route logs the user in if the user exists and the provided password matches the `passwordHash` field in the [User](#user) object. Note that the `boom_auth` token is only provided in the output for mobile devices. Browsers should **not** store this credential using localStorage, which is not secure.
 
 **Environment Variables**
 
-TODO
+None
 
 **Inputs**
 
-TODO
+
+POST this JSON object:
+
+Field | Type | Description
+------|------|------------
+`email`|`string`|email for account
+`password`|`string`|password for account
+
+Example:
+
+```json
+{
+  "email": "me@email.com",
+  "password": "N0tForYourEy3s!!!!!!"
+}
+```
 
 **Output**
 
-TODO
+JSON object:
+
+Field | Type | Description
+------|------|------------
+`status` | `success` or `error` | Status of request
+`message` | `string` | Message describing error or "Success"
+`boom_auth` | `string?` | The authorization JWT to use for making authenticated requests as the logged-in user or undefined on failure.
+
+Example:
+
+```json
+{
+  "status": "success",
+  "message": "Success",
+  "boom_auth": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+}
+```
 
 **Side Effects**
 
-TODO
+- HttpOnly Secure Cookie `boom_auth` is set.
 
 #### Logout Route
 
-TODO
+This route logs the user out by unsetting the `boom_auth` cookie. The client-side is expected to delete any local auth credentials (for mobile).
 
 **Environment Variables**
 
-TODO
+None
 
 **Inputs**
 
-TODO
+None
 
 **Output**
 
-TODO
+A [Route Response](#route-response) object.
 
 **Side Effects**
 
-TODO
+The `boom_auth` cookie is unset.
 
 #### Onboard User Route
 
-TODO
+This route sets basic info for the user.
 
 **Environment Variables**
 
-TODO
+None
 
 **Inputs**
 
-TODO
+POST this JSON object:
+
+Field | Type | Description
+------|------|------------
+`name`|`string`|Display name for user
+`nativeId`|`int`|ID of [Language](#language) selected as Native
+`targetId`|`int`|ID of [Language](#language) selected to learn
+
+Example:
+
+```json
+{
+  "name": "George Language",
+  "nativeId": 1,
+  "targetId": 2
+}
+```
 
 **Output**
 
-TODO
+A [Route Response](#route-response) object.
 
 **Side Effects**
 
-TODO
+- Set the User's `name` field
+- Created a [LanguagePair](#language-pair) with the given native/target languages and set it to active.
 
 #### Register Route
 
-TODO
+This route creates a new user object and sends an activation email.
 
 **Environment Variables**
 
-TODO
+None
 
 **Inputs**
 
-TODO
+POST this JSON object:
+
+Field | Type | Description
+------|------|------------
+`email`|`string`|User's email
+`password`|`string`|User's password
+`passwordConfirmation`|`string`|User's password confirmation
+
+Example:
+
+```json
+{
+  "email": "me@email.com",
+  "password": "N0tForYourEy3s!!!!!!",
+  "passwordConfirmation": "N0tForYourEy3s!!!!!!"
+}
+```
 
 **Output**
 
-TODO
+A [Route Response](#route-response) object.
 
 **Side Effects**
 
-TODO
+- New User object has been generated.
+- User's `activationCode` field is populated with a random string.
+- An [Activation Email](#activation-email) has been sent to the user-provided email.
 
 #### Reset Password Route
 
-TODO
+This route changes the user's password to the new one they provide.
 
 **Environment Variables**
 
-TODO
+None
 
 **Inputs**
 
-TODO
+POST this JSON object:
+
+Field | Type | Description
+------|------|------------
+`email`|`string`|User's email
+`code`|`string`|Activation code
+`password`|`string`| New password
+`passwordConfirmation`|`string`|New password confirmation
+
+Example:
+
+```json
+{
+  "email": "me@email.com",
+  "code": "abcdefghijklmnopqrstuvwxyz1234567890",
+  "password": "N0tForYourEy3s!!!!!!",
+  "passwordConfirmation": "N0tForYourEy3s!!!!!!"
+}
+```
 
 **Output**
 
-TODO
+A [Route Response](#route-response) object.
 
 **Side Effects**
 
-TODO
+- User's `passwordHash` and `passwordSalt` have been updated to match the new password.
+
+### Models
+
+These are data structures that are not stored in the database.
+
+#### Route Response
+
+Generic response object to provide info on status/errors. Any output messages should be understandable enough to be displayed to the user.
+
+Field | Type | Description
+------|------|------------
+status|'success' or 'error' | whether the request succeeded
+message|string|User-facing message describing error or "Success"
+
+Example:
+
+```json
+{
+  "status": "success",
+  "message": "Success"
+}
+```
 
 ### DB Design
 
@@ -446,7 +607,8 @@ name | String? | Display name
 email | String | Unique email
 passwordHash | String | Hashed password
 passwordSalt | String | Salt for password
-interfaceLanguage | Language | Language that the user prefers to display the application in
+activationCode | String | Randomly generated string for email activation
+activeLanguagePairId | `number?` | The currently selected language pair
 
 #### Language Pair
 
@@ -454,7 +616,7 @@ Field | Type | Description
 ------|-----|------------
 id | Int | Auto-incremented unique id
 user | User | User who is learning this LanguagePair
-source | Language | Language you already know
+native | Language | Language you already know
 target | Language | Language you are learning
 
 #### Language
