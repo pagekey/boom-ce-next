@@ -138,7 +138,7 @@ None
 
 #### Forgot Password Page
 
-On this page, the user types in their email and hits submit to send a request to the [Forgot Password Route](#forgot-password-route).
+On this page, the user types in their email and hits submit to send a request to the [Forgot Password Route](#forgot-password-route). After sending the request, it displays a confirmation message and a link to the home page.
 
 **Components**
 
@@ -187,7 +187,10 @@ None - it uses the [User Context](#usercontext) to get information about the log
 
 #### Login Page
 
-On this page, the user types in their email and password and presses enter / clicks the submit button. On error, the error message from the server is displayed. On success, they are redirected to either the [Onboard User Page](#onboard-user-page) or the [Dashboard Page](#dashboard-page)
+On this page, the user types in their email and password and presses enter / clicks the submit button. On error, the error message from the server is displayed. On success:
+
+- If User's `name` field is undefined or `activeLanguagePairId` is undefined, redirect to [Onboard User Page](#onboard-user-page).
+- Else, redirect to [Dashboard Page](#dashboard-page).
 
 **Components**
 
@@ -306,7 +309,9 @@ A [Route Response](#route-response) object.
 
 **Side Effects**
 
-If the user exists in the DB, an email is sent to `email`. Otherwise, it fails and returns an error.
+- If the user exists in the DB:
+  - The user's `activationCode` field has been reset to some new random value.
+  - A [Forgot Password Email](#forgot-password-email) is sent to `email` with a link to `ResetPasswordPage` (containing the `activationCode`). Otherwise, it fails and returns an error.
 
 #### Get Languages Route
 
@@ -430,8 +435,6 @@ Example:
 **Side Effects**
 
 - HttpOnly Secure Cookie `boom_auth` is set.
-- If User's `name` field is undefined or `activeLanguagePairId` is undefined, redirect to [Onboard User Page](#onboard-user-page).
-- Else, redirect to [Dashboard Page](#dashboard-page).
 
 #### Logout Route
 
@@ -468,14 +471,16 @@ POST this JSON object:
 Field | Type | Description
 ------|------|------------
 `name`|`string`|Display name for user
-`native_id`|`int`|ID of [Language](#language) selected as Native
-`target_id`|`int`|ID of [Language](#language) selected to learn
+`nativeId`|`int`|ID of [Language](#language) selected as Native
+`targetId`|`int`|ID of [Language](#language) selected to learn
 
 Example:
 
 ```json
 {
-  "name": "George Language"
+  "name": "George Language",
+  "nativeId": 1,
+  "targetId": 2
 }
 ```
 
@@ -490,43 +495,79 @@ A [Route Response](#route-response) object.
 
 #### Register Route
 
-TODO
+This route creates a new user object and sends an activation email.
 
 **Environment Variables**
 
-TODO
+None
 
 **Inputs**
 
-TODO
+POST this JSON object:
+
+Field | Type | Description
+------|------|------------
+`email`|`string`|User's email
+`password`|`string`|User's password
+`passwordConfirmation`|`string`|User's password confirmation
+
+Example:
+
+```json
+{
+  "email": "me@email.com",
+  "password": "N0tForYourEy3s!!!!!!",
+  "passwordConfirmation": "N0tForYourEy3s!!!!!!"
+}
+```
 
 **Output**
 
-TODO
+A [Route Response](#route-response) object.
 
 **Side Effects**
 
-TODO
+- New User object has been generated.
+- User's `activationCode` field is populated with a random string.
+- An [Activation Email](#activation-email) has been sent to the user-provided email.
 
 #### Reset Password Route
 
-TODO
+This route changes the user's password to the new one they provide.
 
 **Environment Variables**
 
-TODO
+None
 
 **Inputs**
 
-TODO
+POST this JSON object:
+
+Field | Type | Description
+------|------|------------
+`email`|`string`|User's email
+`code`|`string`|Activation code
+`password`|`string`| New password
+`passwordConfirmation`|`string`|New password confirmation
+
+Example:
+
+```json
+{
+  "email": "me@email.com",
+  "code": "abcdefghijklmnopqrstuvwxyz1234567890",
+  "password": "N0tForYourEy3s!!!!!!",
+  "passwordConfirmation": "N0tForYourEy3s!!!!!!"
+}
+```
 
 **Output**
 
-TODO
+A [Route Response](#route-response) object.
 
 **Side Effects**
 
-TODO
+- User's `passwordHash` and `passwordSalt` have been updated to match the new password.
 
 ### Models
 
