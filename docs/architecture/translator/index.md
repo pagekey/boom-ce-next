@@ -170,6 +170,8 @@ TODO
 
 #### Save Card Route
 
+TODO - make this out of scope and move to Card doc. Pass front, back, frontLanguage, backLanguage
+
 Argument | Type | Description
 ---------|------|------------
 `front` | `string` | Front of the card

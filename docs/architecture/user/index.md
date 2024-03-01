@@ -101,6 +101,14 @@ flowchart TD
 
 None
 
+### Contexts
+
+#### User Context
+
+This context provides the current user object if the user is logged in. Otherwise, it returns `undefined`.
+
+It gets this information by making a request to the [Get User Route](#get-user-route)
+
 ### Pages
 
 #### ActivationFailedPage
@@ -165,23 +173,30 @@ If the user is already logged in, it will redirect to the dashboard.
 
 **Components**
 
-TODO
+- Welcome message
+- Login button (included in Layout)
+- Sign-up button (included in Layout)
+
+**Effects**
+
+Redirect if user is already logged in.
 
 **Requests**
 
-TODO
+None - it uses the [User Context](#usercontext) to get information about the logged-in user and determine whether to redirect.
 
 #### Login Page
 
-On this page, the user types in their email and password and presses enter / clicks the submit button. On success, they are redirected to either the [Getting Started Page](#getting-started-page) or the [Dashboard Page](#dashboard-page)
+On this page, the user types in their email and password and presses enter / clicks the submit button. On error, the error message from the server is displayed. On success, they are redirected to either the [Getting Started Page](#getting-started-page) or the [Dashboard Page](#dashboard-page)
 
 **Components**
 
-TODO
+- Email input
+- Password input
 
 **Requests**
 
-TODO
+- [Login Route](#login-route): called on submit
 
 #### Register Page
 
@@ -195,7 +210,7 @@ This page lets the user register. The fewest fields possible are included to get
 
 **Requests**
 
-TODO
+- [Register Route](#register-route): Called on submit
 
 #### Reset Password Page
 
@@ -210,7 +225,7 @@ This page shows a form for the user to reset their password, including these com
 
 **Requests**
 
-TODO
+- [Reset Password Route](#reset-password-route): Called on submit
 
 
 ### Email Templates
@@ -219,17 +234,11 @@ TODO
 
 This email contains a link to the [Activate Route](#activate-route) with a token as a GET variable.
 
-**Components**
-
-TODO
 
 #### ForgotPasswordEmail
 
 This password contains a special link that the user can click to open the ResetPasswordPage and reset their password.
 
-**Components**
-
-TODO
 
 ### Routes
 
@@ -292,6 +301,34 @@ TODO
 **Side Effects**
 
 TODO
+
+#### Get Current User Route
+
+This route returns information about the currently logged-in user.
+
+**Environment Variables**
+
+None
+
+**Inputs**
+
+The only input is `boom_auth`, a signed JWT provided to the user as the output of the [Login Route](#login-route).
+
+- `boom_auth`: **cookie** containing JWT auth token
+- `boom_auth`: **POST variable** containing JWT auth token (for mobile clients)
+
+**Output**
+
+The [User](#user) object, with the following fields **REMOVED** for privacy/security purposes:
+
+- `id`
+- `email`
+- `passwordHash`
+- `passwordSalt`
+
+**Side Effects**
+
+None
 
 #### Login Route
 
@@ -405,6 +442,7 @@ Field | Type | Description
 ------|------|------------
 id | Int | Auto-incremented unique id
 created | DateTime | Time of registration
+name | String? | Display name
 email | String | Unique email
 passwordHash | String | Hashed password
 passwordSalt | String | Salt for password
