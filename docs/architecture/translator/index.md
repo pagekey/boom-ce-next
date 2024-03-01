@@ -132,11 +132,12 @@ This page contains the translate component and has code to make requests to the 
 
 **Components**
 
-TODO
+- The [Translator component](#translator)
 
 **Requests**
 
-TODO
+- [Save Card Route](#save-card-route): Associated with Translator's SaveCard and SaveSingleCard handlers
+- [Translate Route](#translate-route): Called whenever the user types a translation
 
 ### Routes
 
@@ -148,9 +149,9 @@ Calls Google Translate API and returns a string representing the translated text
 
 Side effect: Saves the translation to the database for this user.
 
-**Environment Variables**
+**Environment Variables/ Files**
 
-TODO
+- `credentials/google-cloud-service-account.json`: Credential file for Google Cloud translation services.
 
 **Inputs**
 
