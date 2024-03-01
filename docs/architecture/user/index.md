@@ -111,7 +111,7 @@ It gets this information by making a request to the [Get User Route](#get-user-r
 
 ### Pages
 
-#### ActivationFailedPage
+#### Activation Failed Page
 
 This page displays a simple message telling the user that their account activation failed.
 
@@ -235,7 +235,7 @@ This page shows a form for the user to reset their password, including these com
 This email contains a link to the [Activate Route](#activate-route) with a token as a GET variable.
 
 
-#### ForgotPasswordEmail
+#### Forgot Password Email
 
 This password contains a special link that the user can click to open the ResetPasswordPage and reset their password.
 
@@ -448,7 +448,7 @@ passwordHash | String | Hashed password
 passwordSalt | String | Salt for password
 interfaceLanguage | Language | Language that the user prefers to display the application in
 
-#### LanguagePair
+#### Language Pair
 
 Field | Type | Description
 ------|-----|------------
