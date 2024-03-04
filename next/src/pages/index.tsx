@@ -23,6 +23,7 @@ export default function Home() {
           </div>
           <Button component='a' href='/user/activation_failed'>Activation Failed Page</Button>
           <Button component='a' href='/user/dashboard'>Dashboard Page</Button>
+          <Button component='a' href='/user/forgot_password'>Forgot Password Page</Button>
         </>
     );
   }
