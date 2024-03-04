@@ -7,15 +7,15 @@ import { Loader } from '@mantine/core';
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const requestExample = trpc.example.index.useQuery();
+  // const requestExample = trpc.example.index.useQuery();
 
-  if (requestExample.isLoading) {
-    return <Loader />;
-  } else if (requestExample.error) {
-    return "An error occurred";
-  } else if (!requestExample.data) {
-    return "Error: no data received.";
-  } else {
+  // if (requestExample.isLoading) {
+  //   return <Loader />;
+  // } else if (requestExample.error) {
+  //   return "An error occurred";
+  // } else if (!requestExample.data) {
+  //   return "Error: no data received.";
+  // } else {
     return (
         <>
           <div>
@@ -26,5 +26,5 @@ export default function Home() {
           <Button component='a' href='/user/forgot_password'>Forgot Password Page</Button>
         </>
     );
-  }
+  // }
 }
