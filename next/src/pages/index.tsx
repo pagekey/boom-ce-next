@@ -18,10 +18,11 @@ export default function Home() {
   } else {
     return (
         <>
-            <div>
-                Here's some data! {requestExample.data}
-            </div>
-            <Button color='red'>Do nothing</Button>
+          <div>
+            Temporary testing links:
+          </div>
+          <Button component='a' href='/user/activation_failed'>Activation Failed Page</Button>
+          <Button component='a' href='/user/dashboard'>Dashboard Page</Button>
         </>
     );
   }
