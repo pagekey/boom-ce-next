@@ -7,6 +7,7 @@ import { trpc } from "@/util/trpc";
 
 
 const theme = createTheme({
+  primaryColor: 'violet',
 });
 
 function App({ Component, pageProps }: AppProps) {

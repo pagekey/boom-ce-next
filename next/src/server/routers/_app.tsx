@@ -1,10 +1,10 @@
 import { router } from "../trpc";
-import { exampleRouter } from "./example";
+import { userRouter } from "./user";
 
 
 export const appRouter = router({
     // add subrouters here
-    example: exampleRouter,
+    user: userRouter,
 });
 
 export type AppRouter = typeof appRouter;
