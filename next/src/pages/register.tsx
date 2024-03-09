@@ -7,6 +7,7 @@ import { setSecureCookie } from '@/util/setSecureCookie';
 export default function RegisterPage() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState<string>('');
   const [error, setError] = useState<string>('');
   const router = useRouter();
 
@@ -20,8 +21,9 @@ export default function RegisterPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: email,
-          password: password,
+          email,
+          password,
+          passwordConfirmation,
         }),
       });
 
@@ -49,7 +51,7 @@ export default function RegisterPage() {
         }}
       >
         <TextInput
-          placeholder='Email'
+          label='Email'
           className='mt-2'
           type='email'
           value={email}
@@ -57,7 +59,7 @@ export default function RegisterPage() {
           required
         />
         <TextInput
-          placeholder='Password'
+          label='Password'
           className='mt-2'
           type='password'
           value={password}
@@ -65,7 +67,20 @@ export default function RegisterPage() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <Button className='mt-2' type='submit'>
+        <TextInput
+          label='Confirm Password'
+          className='mt-2'
+          type='password'
+          value={passwordConfirmation}
+          minLength={8}
+          onChange={(e) => setPasswordConfirmation(e.target.value)}
+          required
+        />
+        <Button
+          className='mt-2'
+          type='submit'
+          disabled={!email || !password || password !== passwordConfirmation}
+        >
           Create Account
         </Button>
       </form>

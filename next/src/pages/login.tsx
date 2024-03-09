@@ -20,8 +20,8 @@ export default function LoginPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: email,
-          password: password,
+          email,
+          password,
         }),
       });
 
@@ -49,7 +49,7 @@ export default function LoginPage() {
         }}
       >
         <TextInput
-          placeholder='Email'
+          label='Email'
           className='mt-2'
           type='email'
           value={email}
@@ -57,7 +57,7 @@ export default function LoginPage() {
           required
         />
         <TextInput
-          placeholder='Password'
+          label='Password'
           className='mt-2'
           type='password'
           value={password}
@@ -65,7 +65,7 @@ export default function LoginPage() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <Button className='mt-2' type='submit'>
+        <Button disabled={email.length < 1 || password.length < 1} className='mt-2' type='submit'>
           Login
         </Button>
       </form>
