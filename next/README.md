@@ -2,11 +2,11 @@
 
 ## Getting Started
 
-1. Install `node v16.20.1`.
+1. Install `node v16.18.1`.
 
-2. `npm i`
+2. Install deps so that they are mounted into the dev container: `npm i`
 
-3. `docker-compose up`
+3. Run: `docker-compose up`
 
 4. Get a shell into the web container and migrate the DB:
 
@@ -15,7 +15,7 @@
     npx prisma migrate dev --name init
     ```
 
-4. Visit `localhost:8000` and start coding.
+4. Visit `localhost:3000` and start coding.
 
 ## Live-Reload for Native
 
