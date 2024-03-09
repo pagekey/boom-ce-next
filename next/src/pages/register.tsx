@@ -25,6 +25,7 @@ export default function RegisterPage() {
       });
 
       if (response.status == 200) {
+        // TODO: Extract token and save as HttpOnly cookie
         router.push('/');
       } else {
         setError('An unknown error occurred when trying to register 😭');
