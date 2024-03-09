@@ -7,10 +7,7 @@ RUN apt-get update && apt-get install -y ca-certificates && update-ca-certificat
 
 WORKDIR /app
 
-COPY . .
-
-RUN chown -R node ./
-USER node
+COPY --chown=node:node . .
 
 RUN npm i
 
@@ -18,6 +15,5 @@ RUN npm i
 RUN git describe --tags --abbrev=0 | xargs -I {} sed -i "s/'non-git'/'{}'/g" src/lib/version.ts
 # Replace version with Git short sha
 # RUN git rev-parse --short HEAD | xargs -I {} sed -i "s/'non-git'/'{}'/g" src/lib/version.ts
-
 RUN npx prisma generate
 RUN npm run build

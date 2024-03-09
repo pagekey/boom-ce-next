@@ -6,9 +6,11 @@ services:
       context: .
       dockerfile: ./docker/web/Dockerfile
     image: registry.gitlab.com/pagekey/registry/boom:5.0
+    user: node
     volumes:
       - .env:/app/.env
       - .:/app # dev only
+      - /app/node_modules
     ports:
       - 3000:80
       - 3001:3001
