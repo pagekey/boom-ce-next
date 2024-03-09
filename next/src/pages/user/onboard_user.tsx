@@ -8,7 +8,10 @@ import { useState } from "react";
 
 
 export default function OnboardUserPage() {
+    const request = trpc.user.getLanguages.useQuery();
+
     const [displayName, setDisplayName] = useState<string>('');
+
 
     return (
         <>
@@ -23,8 +26,8 @@ export default function OnboardUserPage() {
             />
             <MultiSelect
                 label="Native Language"
-                placeholder="Pick all that you speak"
-                data={['React', 'Angular', 'Vue', 'Svelte']}
+                placeholder="Choose the language you already know best."
+                data={['Spanish', 'English', 'Russian']}
             />
 
             <Button component="a" href="/">
