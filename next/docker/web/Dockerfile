@@ -17,3 +17,5 @@ RUN git describe --tags --abbrev=0 | xargs -I {} sed -i "s/'non-git'/'{}'/g" src
 # RUN git rev-parse --short HEAD | xargs -I {} sed -i "s/'non-git'/'{}'/g" src/lib/version.ts
 RUN npx prisma generate
 RUN npm run build
+
+USER node
