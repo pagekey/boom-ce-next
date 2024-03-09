@@ -1,36 +1,31 @@
-version: "3"
+version: '3'
 
 services:
-    database:
-        container_name: boom-database
-        build:
-            context: ./
-            dockerfile: ./docker/postgresql/Dockerfile
-        environment:
-            POSTGRES_DB: ${POSTGRES_DB:-boom}
-            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
-            POSTGRES_USER: ${POSTGRES_USER:-boom}
-        ports:
-            - "5432:5432"
-        volumes:
-            - db-boom:/var/lib/postgresql/data:rw
-    node:
-        container_name: boom-node
-        user: node
-        build:
-            context: ./
-            dockerfile: ./docker/node/Dockerfile
-        command: npm run dev
-        volumes:
-          - ./:/home/node/web
-          - /home/web/live/node_modules
-        ports:
-            - "3000:3000"
-        environment:
-            - DATABASE_URL=postgres://${POSTGRES_USER:-boom}:${POSTGRES_PASSWORD:-password}@boom-database/${POSTGRES_DB:-boom}
-        depends_on:
-            - database
-
-volumes:
-    # postgres data
-    db-boom:
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    image: registry.gitlab.com/pagekey/registry/boom:5.0
+    volumes:
+      - .env:/app/.env
+      - .:/app # dev only
+    ports:
+      - 3000:80
+      - 3001:3001
+    command: [npm, run, dev] # dev only
+  db:
+    build:
+      context: .
+      dockerfile: ./docker/db/Dockerfile
+    ports:
+      - 5432:5432 # dev only
+    # volumes:
+    #   - ./var/lib/postgresql/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+  redis:
+    image: redis:7.2.3-alpine
+    ports:
+      - 6379:6379

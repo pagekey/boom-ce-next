@@ -1,17 +1,60 @@
 # Boom CE: Next.js
 
-## Dev
+## Getting Started
 
-1. Copy the env sample
+1. Install `node v16.20.1`.
+
+2. `npm i`
+
+3. `docker-compose up`
+
+4. Get a shell into the web container and migrate the DB:
+
+    ```bash
+    docker-compose exec web sh
+    npx prisma migrate dev --name init
+    ```
+
+4. Visit `localhost:8000` and start coding.
+
+## Live-Reload for Native
+
+1. Run this to get Android live reloading.
 
 ```bash
-cp .env-sample .env
+ionic cap run android -l --external
 ```
 
-2. Fill out `.env` as needed.
+## Deploying Client(s)
 
-3. Run this - assumes you have docker compose aliased as `dc`:
+1. Export static site to web. Results are in `out/`.
 
 ```bash
-dc up
+npm run export
+```
+
+2. Sync mobile app code.
+
+```bash
+npx cap sync
+```
+
+3. Run Android.
+
+```bash
+export CAPACITOR_ANDROID_STUDIO_PATH=/opt/android-studio/bin/studio.sh
+npx cap open android
+```
+
+4. Run iOS.
+
+```bash
+npx cap open ios
+```
+
+## Deploying Server
+
+```bash
+docker-compose build
+docker-compose push
 ```
