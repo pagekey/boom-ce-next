@@ -12,7 +12,10 @@ services:
     ports:
       - 3000:80
       - 3001:3001
-    command: [npm, run, dev] # dev only
+    command: # dev only
+      - "sh"
+      - "-c"
+      - "npm i && npm run dev"
   db:
     build:
       context: .
