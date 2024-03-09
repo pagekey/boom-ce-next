@@ -63,7 +63,7 @@ export default function RegisterPage() {
           required
         />
         <Button className='mt-2' type='submit'>
-          Submit
+          Create Account
         </Button>
       </form>
 
