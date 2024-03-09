@@ -2,6 +2,7 @@ import AppTitle from '@/components/AppTitle';
 import { useState } from 'react';
 import { TextInput, Button, Alert } from '@mantine/core';
 import { useRouter } from 'next/router';
+import { setSecureCookie } from '@/util/setSecureCookie';
 
 export default function RegisterPage() {
   const [email, setEmail] = useState<string>('');
@@ -25,7 +26,8 @@ export default function RegisterPage() {
       });
 
       if (response.status == 200) {
-        // TODO: Extract token and save as HttpOnly cookie
+        const { status, message, boom_auth } = await response.json();
+        setSecureCookie('boom_auth', boom_auth, 30);
         router.push('/');
       } else {
         setError('An unknown error occurred when trying to register 😭');
