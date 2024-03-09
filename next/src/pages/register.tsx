@@ -58,6 +58,7 @@ export default function RegisterPage() {
           className='mt-2'
           type='password'
           value={password}
+          minLength={8}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
