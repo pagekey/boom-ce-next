@@ -3,14 +3,25 @@
 //   Source:  docs/architecture/user/index.md
 
 import AppTitle from "@/components/AppTitle";
-import { Button, MultiSelect, TextInput } from "@mantine/core";
+import { trpc } from "@/util/trpc";
+import { Button, Select, TextInput } from "@mantine/core";
 import { useState } from "react";
 
 
 export default function OnboardUserPage() {
     const request = trpc.user.getLanguages.useQuery();
+    const requestSubmit = trpc.user.onboardUser.useMutation();
+
+    const [languages, setLangauges] = useState<Language>();
 
     const [displayName, setDisplayName] = useState<string>('');
+
+    const handleSubmit = () => {
+        requestSubmit.mutate({
+            displayName: displayName,
+
+        });
+    };
 
 
     return (
@@ -24,14 +35,16 @@ export default function OnboardUserPage() {
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
             />
-            <MultiSelect
+            <Select
                 label="Native Language"
                 placeholder="Choose the language you already know best."
                 data={['Spanish', 'English', 'Russian']}
             />
 
-            <Button component="a" href="/">
-                Return home
+            <Button
+                onClick={() => handleSubmit()}
+            >
+                Submit
             </Button>
         </>
     )
