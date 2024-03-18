@@ -13,6 +13,9 @@
 ```bash
 docker-compose exec web sh
 npx prisma migrate dev
+npx prisma generate
+exit
+npx prisma generate
 ```
 
 4. Visit `localhost:3000` and start coding.

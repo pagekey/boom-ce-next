@@ -46,7 +46,7 @@ export const userRouter = router({
         displayName: z.string(),
         nativeLanguageId: z.number(),
         targetLanguageId: z.number(),
-    })).query(async (opts) => {
+    })).mutation(async (opts) => {
         // Design:
         //   Website: https://docs.boom.pagekey.io/architecture/user/index.html#onboard-user-route
         //   Source:  docs/architecture/user/index.md
