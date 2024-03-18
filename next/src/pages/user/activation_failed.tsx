@@ -5,6 +5,7 @@
 import AppTitle from "@/components/AppTitle";
 import { Button } from "@mantine/core";
 
+
 export default function ActivationFailedPage() {
     return (
         <>

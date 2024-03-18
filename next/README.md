@@ -10,10 +10,13 @@
 
 4. Get a shell into the web container and migrate the DB:
 
-    ```bash
-    docker-compose exec web sh
-    npx prisma migrate dev --name init
-    ```
+```bash
+docker-compose exec web sh
+npx prisma migrate dev
+npx prisma generate
+exit
+npx prisma generate
+```
 
 4. Visit `localhost:3000` and start coding.
 

@@ -12,7 +12,43 @@ export const userRouter = router({
         email: z.string(),
     })).mutation(async (opts) => {
         // Design:
-        //   Website: https://docs.boom.pagekey.io/architecture/user/index.html#forgot-password-page
+        //   Website: https://docs.boom.pagekey.io/architecture/user/index.html#forgot-password-route
+        //   Source:  docs/architecture/user/index.md
+        try {
+            return {
+                status: 'error',
+                message: 'This route is not yet implemented.',
+            } as RouteResponse;
+        } catch(e) {
+            return {
+                status: 'error',
+                message: 'An unknown error occurred.',
+            } as RouteResponse;
+        }
+    }),
+    getLanguages: procedure.query(async (opts) => {
+        // Design:
+        //   Website: https://docs.boom.pagekey.io/architecture/user/index.html#get-languages-route
+        //   Source:  docs/architecture/user/index.md
+        try {
+            return {
+                status: 'error',
+                message: 'This route is not yet implemented.',
+            } as RouteResponse;
+        } catch(e) {
+            return {
+                status: 'error',
+                message: 'An unknown error occurred.',
+            } as RouteResponse;
+        }
+    }),
+    onboardUser: procedure.input(z.object({
+        displayName: z.string(),
+        nativeLanguageId: z.number(),
+        targetLanguageId: z.number(),
+    })).mutation(async (opts) => {
+        // Design:
+        //   Website: https://docs.boom.pagekey.io/architecture/user/index.html#onboard-user-route
         //   Source:  docs/architecture/user/index.md
         try {
             return {

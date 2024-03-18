@@ -25,6 +25,7 @@ export default function Home() {
           <Button component='a' href='/user/dashboard'>Dashboard Page</Button>
           <Button component='a' href='/user/forgot_password'>Forgot Password Page</Button>
           <Button component='a' href='/user/login'>Login</Button>
+          <Button component='a' href='/user/onboard_user'>Onboard User Page</Button>
           <Button component='a' href='/user/register'>Register</Button>
           <Button component='a' href='/user/reset-password'>Reset Password</Button>
         </>
