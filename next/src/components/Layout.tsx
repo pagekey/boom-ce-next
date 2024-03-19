@@ -1,4 +1,4 @@
-import { AppShell } from "@mantine/core";
+import { AppShell, Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { Burger } from "@mantine/core";
 import Link from "next/link";
@@ -30,6 +30,9 @@ export default function Layout({ children }: { children: any }) {
 
                 <AppShell.Navbar p="md">
                     <Link href="/">Home</Link>
+
+                    <Button component='a' href='/user/login'>Login</Button>
+                    <Button component='a' href='/user/register'>Register</Button>
                 </AppShell.Navbar>
 
                 <AppShell.Main>
