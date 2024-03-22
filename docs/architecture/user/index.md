@@ -81,6 +81,8 @@ flowchart TD
     GetLanguagesRoute <-->|initial info| GettingStartedPage 
     GetLanguagesRoute{GetLanguagesRoute}
 
+    GetCurrentUserRoute <-->|request| UserContext 
+
     %% Styles
     %% ------------
     %% Email Templates
@@ -91,6 +93,7 @@ flowchart TD
     style CheckActivation fill:pink,color:black
     style CheckAccount fill:pink,color:black
     style GetLanguagesRoute fill:pink,color:black
+    style GetUserRoute fill:pink,color:black
     style LogoutRoute fill:pink,color:black
     style OnboardUserRoute fill:pink,color:black
     style ForgotPasswordRoute fill:pink,color:black
@@ -107,7 +110,7 @@ None
 
 This context provides the current user object if the user is logged in. Otherwise, it returns `undefined`.
 
-It gets this information by making a request to the [Get User Route](#get-user-route)
+It gets this information by making a request to the [Get Current User Route](#get-current-user-route)
 
 ### Pages
 
@@ -183,7 +186,7 @@ Redirect if user is already logged in.
 
 **Requests**
 
-None - it uses the [User Context](#usercontext) to get information about the logged-in user and determine whether to redirect.
+None - it uses the [User Context](#user-context) to get information about the logged-in user and determine whether to redirect.
 
 #### Login Page
 
