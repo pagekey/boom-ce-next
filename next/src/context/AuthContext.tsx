@@ -23,6 +23,7 @@ const defaultAuthInfo: AuthInfo = {
 const AuthContext = createContext<AuthInfo>(defaultAuthInfo);
 
 export const AuthProvider = ({children}: PropsWithChildren<{}>) => {
+    console.log('hello from auth provider')
     const request = trpc.user.getCurrentUser.useQuery();
     
     const getAuthInfo = (request: any): AuthInfo => {

@@ -31,6 +31,7 @@ export const userRouter = router({
         // Design:
         //   Website: https://docs.boom.pagekey.io/architecture/user/index.html#get-current-user-route
         //   Source:  docs/architecture/user/index.md
+        console.log('getting current user');
         try {
             return {
                 id: 1,
