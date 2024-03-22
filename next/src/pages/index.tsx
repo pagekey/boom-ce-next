@@ -1,10 +1,9 @@
+import { useAuth } from "@/context/AuthContext";
 import { Button } from "@mantine/core";
-import { Inter } from "next/font/google";
 
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const auth = useAuth();
   // const requestExample = trpc.example.index.useQuery();
 
   // if (requestExample.isLoading) {
@@ -16,6 +15,9 @@ export default function Home() {
   // } else {
     return (
         <>
+          <div>
+            Auth: {JSON.stringify(auth)}
+          </div>
           <div>
             Temporary testing links:
           </div>
