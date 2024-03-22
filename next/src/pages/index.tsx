@@ -3,7 +3,6 @@ import { Button } from "@mantine/core";
 
 
 export default function Home() {
-  console.log('hello from home page');
   const auth = useAuth();
   // const requestExample = trpc.example.index.useQuery();
 

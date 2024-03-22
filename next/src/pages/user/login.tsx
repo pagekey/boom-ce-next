@@ -33,7 +33,7 @@ export default function LoginPage() {
         setError('An unknown error occurred when trying to login 😭');
       }
     } catch (e) {
-      console.log('Error logging user in', e);
+      console.error('Error logging user in', e);
       setError('An unknown error occurred when trying to login 😭');
     }
   };

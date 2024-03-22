@@ -35,7 +35,7 @@ export default function RegisterPage() {
         setError('An unknown error occurred when trying to register 😭');
       }
     } catch (e) {
-      console.log('Error registering user account', e);
+      console.error('Error registering user account', e);
       setError('An unknown error occurred when trying to register 😭');
     }
   };

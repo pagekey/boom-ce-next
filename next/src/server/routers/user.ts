@@ -5,10 +5,6 @@ import { User } from "@prisma/client";
 
 
 export const userRouter = router({
-    // index: procedure.query(async (opts) => {
-    //     console.log('hello from the server side.')
-    //     return 'Hello world';
-    // }),
     forgotPassword: procedure.input(z.object({
         email: z.string(),
     })).mutation(async (opts) => {
@@ -31,7 +27,6 @@ export const userRouter = router({
         // Design:
         //   Website: https://docs.boom.pagekey.io/architecture/user/index.html#get-current-user-route
         //   Source:  docs/architecture/user/index.md
-        console.log('getting current user');
         try {
             return {
                 id: 1,
