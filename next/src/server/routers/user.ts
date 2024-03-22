@@ -1,6 +1,7 @@
 import RouteResponse from "@/models/RouteResponse";
 import { procedure, router } from "../trpc";
 import { z } from 'zod';
+import { User } from "@prisma/client";
 
 
 export const userRouter = router({
@@ -32,9 +33,8 @@ export const userRouter = router({
         //   Source:  docs/architecture/user/index.md
         try {
             return {
-                status: 'error',
-                message: 'This route is not yet implemented.',
-            } as RouteResponse;
+                id: 1,
+            } as User;
         } catch(e) {
             return {
                 status: 'error',

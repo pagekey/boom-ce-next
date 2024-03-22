@@ -1,59 +1,48 @@
 // Design:
 //   Website: https://docs.boom.pagekey.io/architecture/user/index.html#auth-context
 //   Source:  docs/architecture/user/index.md
-import { createContext, useState, useEffect, useContext, PropsWithChildren } from 'react';
+import { trpc } from '@/util/trpc';
+import { User } from '@prisma/client';
+import { createContext, useContext, PropsWithChildren } from 'react';
 
 
 export interface AuthInfo {
-    user: any;
-    isLoggedIn: () => boolean;
-    loading: boolean;
+    user?: User
+    loggedIn: boolean
+    loading: boolean
+    error: boolean
 }
 
 const defaultAuthInfo: AuthInfo = {
-    user: null,
-    isLoggedIn: () => false,
+    user: undefined,
+    loggedIn: false,
     loading: true,
+    error: false,
 };
 
 const AuthContext = createContext<AuthInfo>(defaultAuthInfo);
 
 export const AuthProvider = ({children}: PropsWithChildren<{}>) => {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const request = trpc.user.getCurrentUser.useQuery();
     
-    const fetchCurrentUser = async () => {
-        setUser('fetched fake user')
-        setLoading(false);
-        // try {
-        //     const response = await fetch('/user/current');
-        //     if (response.ok) {
-        //         const userData = await response.json();
-        //         setUser(userData);
-        //     } else {
-        //         setUser(null);
-        //     }
-        // } catch (error) {
-        //     console.error('Error fetching current user:', error);
-        //     setUser(null);
-        // } finally {
-        //     setLoading(false);
-        // }
+    const getAuthInfo = (request: any): AuthInfo => {
+        if (request.isLoading) {
+            return defaultAuthInfo;
+        } else if (request.isError) {
+            return {...defaultAuthInfo, error: true, loading: false};
+        } else if (!request.data) {
+            return {...defaultAuthInfo, error: true, loading: false};
+        } else {
+            return {
+                user: request.data,
+                loggedIn: true,
+                loading: false,
+                error: false,
+            }
+        }
     };
     
-    useEffect(() => {
-        fetchCurrentUser();
-    }, []);
-    
-    const isLoggedIn = () => {
-        return !!user;
-    };
-    
-    const authContextValue: AuthInfo = {
-        user,
-        isLoggedIn,
-        loading,
-    };
+    const authContextValue: AuthInfo = getAuthInfo(request);
     
     return (
         <AuthContext.Provider value={authContextValue}>
@@ -65,4 +54,3 @@ export const AuthProvider = ({children}: PropsWithChildren<{}>) => {
 export const useAuth = () => {
     return useContext(AuthContext);
 };
-
