@@ -2,6 +2,7 @@ import RouteResponse from "@/models/RouteResponse";
 import { procedure, router } from "../trpc";
 import { z } from 'zod';
 import { User } from "@prisma/client";
+import { TRPCError } from "@trpc/server";
 
 
 export const userRouter = router({
@@ -28,14 +29,18 @@ export const userRouter = router({
         //   Website: https://docs.boom.pagekey.io/architecture/user/index.html#get-current-user-route
         //   Source:  docs/architecture/user/index.md
         try {
+            throw new Error(); // uncomment to test what happens when not logged in
             return {
-                id: 1,
-            } as User;
+                loggedIn: true,
+                user: {
+                    id: 1,
+                } as User,
+            };
         } catch(e) {
             return {
-                status: 'error',
-                message: 'An unknown error occurred.',
-            } as RouteResponse;
+                loggedIn: false,
+                user: undefined,
+            };
         }
     }),
     getLanguages: procedure.query(async (opts) => {

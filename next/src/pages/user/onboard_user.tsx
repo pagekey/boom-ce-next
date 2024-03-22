@@ -3,13 +3,20 @@
 //   Source:  docs/architecture/user/index.md
 
 import AppTitle from "@/components/AppTitle";
+import { useAuth } from "@/context/AuthContext";
+import { redirectIfNotLoggedIn } from "@/util/redirect";
 import { trpc } from "@/util/trpc";
 import { Button, Select, TextInput } from "@mantine/core";
 import { Language } from "@prisma/client";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 
 export default function OnboardUserPage() {
+    const auth = useAuth();
+    const router = useRouter();
+    redirectIfNotLoggedIn(router, auth);
+
     const request = trpc.user.getLanguages.useQuery();
     const requestSubmit = trpc.user.onboardUser.useMutation();
 
