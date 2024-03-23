@@ -38,7 +38,7 @@ export default function ResetPasswordPage() {
         setError(genericErrorMessage);
       }
     } catch (e) {
-      console.log('Error resetting user password', e);
+      console.error('Error resetting user password', e);
       setError(genericErrorMessage);
     }
   };

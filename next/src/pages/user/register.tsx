@@ -1,15 +1,21 @@
 import AppTitle from '@/components/AppTitle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TextInput, Button, Alert } from '@mantine/core';
 import { useRouter } from 'next/router';
 import { setSecureCookie } from '@/util/setSecureCookie';
+import { redirectIfAlreadyLoggedIn } from '@/util/redirect';
+import { useAuth } from '@/context/AuthContext';
+
 
 export default function RegisterPage() {
+  const auth = useAuth();
+  const router = useRouter();
+  useEffect(() => redirectIfAlreadyLoggedIn(router, auth), [auth]);
+
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>('');
   const [error, setError] = useState<string>('');
-  const router = useRouter();
 
   const handleSubmit = async () => {
     setError('');
@@ -35,7 +41,7 @@ export default function RegisterPage() {
         setError('An unknown error occurred when trying to register 😭');
       }
     } catch (e) {
-      console.log('Error registering user account', e);
+      console.error('Error registering user account', e);
       setError('An unknown error occurred when trying to register 😭');
     }
   };

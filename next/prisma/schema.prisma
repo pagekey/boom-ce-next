@@ -12,3 +12,7 @@ model Language {
   name String
   code String
 }
+
+model User {
+  id    Int     @id @default(autoincrement())
+}
