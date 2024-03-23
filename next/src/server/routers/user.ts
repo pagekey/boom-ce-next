@@ -29,7 +29,7 @@ export const userRouter = router({
         //   Website: https://docs.boom.pagekey.io/architecture/user/index.html#get-current-user-route
         //   Source:  docs/architecture/user/index.md
         try {
-            throw new Error(); // uncomment to test what happens when not logged in
+            // throw new Error(); // uncomment to test what happens when not logged in
             return {
                 loggedIn: true,
                 user: {

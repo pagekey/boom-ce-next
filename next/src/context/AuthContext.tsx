@@ -10,14 +10,12 @@ export interface AuthInfo {
     user?: User
     loggedIn: boolean
     loading: boolean
-    error: boolean
 }
 
 const defaultAuthInfo: AuthInfo = {
     user: undefined,
     loggedIn: false,
     loading: true,
-    error: false,
 };
 
 const AuthContext = createContext<AuthInfo>(defaultAuthInfo);
@@ -26,17 +24,16 @@ export const AuthProvider = ({children}: PropsWithChildren<{}>) => {
     const request = trpc.user.getCurrentUser.useQuery();
     
     const getAuthInfo = (request: any): AuthInfo => {
-        console.log('testing:',request.data)
+        console.log(request.data,'yeet', request.data.user, request.data.loggedIn)
         if (request.isLoading) {
             return defaultAuthInfo;
-        } else if (request.isError || !request.data) {
-            return {...defaultAuthInfo, error: true, loading: false};
+        } else if (request.isError || !request.data || !request.data.user || !request.data.loggedIn) {
+            return {...defaultAuthInfo, loading: false};
         } else {
             return {
-                user: request.data,
+                user: request.data.user,
                 loggedIn: true,
                 loading: false,
-                error: false,
             }
         }
     };

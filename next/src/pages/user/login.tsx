@@ -1,14 +1,19 @@
 import AppTitle from '@/components/AppTitle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TextInput, Button, Alert } from '@mantine/core';
 import { useRouter } from 'next/router';
 import { setSecureCookie } from '@/util/setSecureCookie';
+import { redirectIfAlreadyLoggedIn } from '@/util/redirect';
+import { useAuth } from '@/context/AuthContext';
 
 export default function LoginPage() {
+  const auth = useAuth();
+  const router = useRouter();
+  useEffect(() => redirectIfAlreadyLoggedIn(router, auth), [auth]);
+
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
-  const router = useRouter();
 
   const handleSubmit = async () => {
     setError('');
