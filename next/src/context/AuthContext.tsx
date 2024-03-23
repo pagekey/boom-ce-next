@@ -24,7 +24,6 @@ export const AuthProvider = ({children}: PropsWithChildren<{}>) => {
     const request = trpc.user.getCurrentUser.useQuery();
     
     const getAuthInfo = (request: any): AuthInfo => {
-        console.log(request.data,'yeet', request.data.user, request.data.loggedIn)
         if (request.isLoading) {
             return defaultAuthInfo;
         } else if (request.isError || !request.data || !request.data.user || !request.data.loggedIn) {
