@@ -79,4 +79,24 @@ export const userRouter = router({
             } as RouteResponse;
         }
     }),
+    register: procedure.input(z.object({
+        email: z.string(),
+        password: z.string(),
+        passwordConfirmation: z.string(),
+    })).mutation(async (opts) => {
+        // Design:
+        //   Website: https://docs.boom.pagekey.io/architecture/user/index.html#register-route
+        //   Source:  docs/architecture/user/index.md
+        try {
+            return {
+                status: 'error',
+                message: 'This route is not yet implemented.',
+            } as RouteResponse;
+        } catch(e) {
+            return {
+                status: 'error',
+                message: 'An unknown error occurred.',
+            } as RouteResponse;
+        }
+    }),
 });
